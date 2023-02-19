@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "946385159300",
+    "project_id": "learned-skill-377010",
+    "storage_bucket": "learned-skill-377010.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946385159300:android:a9962e5c8dc4782bb46ed1",
+        "android_client_info": {
+          "package_name": "com.example.eatup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946385159300-m48v833bklr2avbt15vb8uhfg3c22h6l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eatup",
+            "certificate_hash": "b0b721516a2046779cf7c2b3cc80ea0d747dacf6"
+          }
+        },
+        {
+          "client_id": "946385159300-0chmsonc5d6b5na9cbnr3v57m1ug33k6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxl6rYU0OnYDQ33squESP_46i2N7cb7Oo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "946385159300-0chmsonc5d6b5na9cbnr3v57m1ug33k6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
