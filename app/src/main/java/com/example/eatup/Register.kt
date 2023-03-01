@@ -18,6 +18,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import org.w3c.dom.Text
 
@@ -43,14 +44,19 @@ class Register : AppCompatActivity() {
         }
     }
 
-    private fun performSignUp() {
+    fun performSignUp() {
         val email = findViewById<EditText>(R.id.signup_emailText)
         val password = findViewById<EditText>(R.id.signup_passwordText)
+        val confirm_password = findViewById<EditText>(R.id.signup_CpasswordText)
 
         if(email.text.isEmpty() || password.text.isEmpty()){
             Toast.makeText(this,"Fields cannot be left empty", Toast.LENGTH_SHORT).show()
+            if (confirm_password != password) {
+                Toast.makeText(baseContext,"Password not similiar", Toast.LENGTH_SHORT).show()
+            }
             return
         }
+
 
         val inputEmail = email.text.toString()
         val inputpassword = password.text.toString()
@@ -58,8 +64,10 @@ class Register : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(inputEmail,inputpassword)
             .addOnCompleteListener(this) { task ->
                 if(task.isSuccessful){
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, MapsActivity::class.java)
+                    // before start , store the user's profile into firebase
                     startActivity(intent)
+
 
                     Toast.makeText(
                         baseContext, "Success" , Toast.LENGTH_SHORT).show()
@@ -74,7 +82,7 @@ class Register : AppCompatActivity() {
     }
 
 
-    }
+}
 
 
 

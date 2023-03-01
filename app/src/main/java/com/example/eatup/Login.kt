@@ -11,6 +11,7 @@ import com.example.eatup.databinding.ActivityLogin2Binding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import org.w3c.dom.Text
 
 class Login : AppCompatActivity() {
 
@@ -23,7 +24,6 @@ class Login : AppCompatActivity() {
         auth = Firebase.auth
 
         val registerBtn: TextView = findViewById(R.id.registerBtn)
-
         registerBtn.setOnClickListener {
             val intent = Intent(this, Register::class.java)
             startActivity(intent)
@@ -33,6 +33,19 @@ class Login : AppCompatActivity() {
         loginBtn.setOnClickListener{
             performLogin()
         }
+
+        val forgotpasswordBtn: TextView = findViewById(R.id.fpBtn)
+        forgotpasswordBtn.setOnClickListener {
+            val intent = Intent(this,ForgotPassword::class.java)
+            startActivity(intent)
+        }
+
+        val partnerBtn: TextView = findViewById(R.id.partnerBtn)
+        partnerBtn.setOnClickListener{
+       //     val intent = Intent(this, partnerPage:: class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun performLogin() {
