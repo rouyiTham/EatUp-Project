@@ -4,25 +4,195 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".FirstFragment">
 
-    <TextView
-        android:id="@+id/textview_first"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_first_fragment"
-        app:layout_constraintBottom_toTopOf="@id/button_first"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- Home Page 1 -->
 
-    <Button
-        android:id="@+id/button_first"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/next"
+    <RelativeLayout
+        android:id="@+id/home_page_1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/home_page_1"
+        android:clipToOutline="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_first" />
+        app:layout_constraintTop_toTopOf="parent">
+
+<!-- why tf isit so hard to scale the actual shape
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="504dp"
+            android:layout_marginTop="0dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="400dp"
+            android:maxHeight="400dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/shape" />
+        -->
+
+
+        <RelativeLayout
+            android:layout_width="500dp"
+            android:layout_height="300dp"
+            android:background="#8ADECA"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <RelativeLayout
+                android:id="@+id/frame_2"
+                android:layout_width="372dp"
+                android:layout_height="131dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="185dp"
+                android:background="@drawable/frame_2">
+
+
+                <ImageView
+                    android:layout_width="133dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="48dp"
+                    android:layout_marginBottom="-2dp"
+                    android:src="@drawable/main_logo" />
+
+                <TextView
+                    android:id="@+id/welcome_to_"
+                    android:layout_width="337dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="6dp"
+                    android:gravity="top"
+                    android:lineSpacingExtra="14dp"
+                    android:text="@string/welcome_to_"
+                    android:textAppearance="@style/welcome_to_" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/greetings_e"
+                android:layout_width="252dp"
+                android:layout_height="364dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="27dp"
+                android:layout_marginTop="333dp"
+                android:text="@string/greetings_e"
+                android:textAppearance="@style/greetings_e" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="730dp"
+                android:backgroundTint="#8ADECA"
+                android:text="JOIN NOW"
+                android:textColor="#000000" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/frame_2"
+            android:layout_width="372dp"
+            android:layout_height="131dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="185dp"
+            android:background="@drawable/frame_2" >
+
+
+            <ImageView
+                android:layout_width="133dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="48dp"
+                android:layout_marginBottom="-2dp"
+                android:src="@drawable/main_logo" />
+
+            <TextView
+                android:id="@+id/welcome_to_"
+                android:layout_width="337dp"
+                android:layout_height="120dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
+                android:gravity="top"
+                android:lineSpacingExtra="14dp"
+                android:text="@string/welcome_to_"
+                android:textAppearance="@style/welcome_to_" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/greetings_e"
+            android:layout_width="252dp"
+            android:layout_height="364dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="333dp"
+            android:text="@string/greetings_e"
+            android:textAppearance="@style/greetings_e"
+            />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="730dp"
+            android:layout_marginLeft="30dp"
+            android:text="JOIN NOW"
+            android:textColor="#000000"
+            android:backgroundTint="#8ADECA"/>
+
+
+
+    </RelativeLayout>
+
+
+    <!--
+    ivy can i delete this isit important?
+    <TextView
+    android:id="@+id/textview_first"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/hello_first_fragment"
+    app:layout_constraintBottom_toTopOf="@id/button_first"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+    android:id="@+id/button_first"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/next"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/textview_first" />
+
+    -->
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+

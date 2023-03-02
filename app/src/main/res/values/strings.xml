@@ -9,7 +9,20 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_map">MapActivity</string>
-    <string name="title_activity_maps">MapsActivity</string>
-    <string name="title_activity_googlemaps">googlemaps</string>
+
+
+    <!--ry front end-->
+    <string name="welcome_to_">Welcome To                EatUp\n</string>
+    <string name="greetings_e">Greetings! EatUp, as the name implies, encourages the community to finish their food and groceries as part of a collaborative effort to reduce food waste.
+
+        \nWe aim to promote sustainable consumption by tracking consumers' grocery expiration dates and by partnering with NGOs for food donations.</string>
+
+
+
+
+
+
+
+
+
 </resources>
