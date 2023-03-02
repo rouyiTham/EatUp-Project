@@ -34,29 +34,28 @@
             android:textColor="#000000" />
 
         <RadioGroup
-            android:id="@+id/default1Btn"
+            android:id="@+id/setting1Btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp">
 
             <RadioButton
-                android:id="@+id/one"
+                android:id="@+id/S1O1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10 days"
-                android:onClick="checkButton"/>
+                android:text="10 days" />
 
             <RadioButton
+                android:id="@+id/S1O2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="7 days"
-                android:onClick="checkButton"/>
+                android:text="7 days" />
 
             <RadioButton
+                android:id="@+id/S1O3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3 days"
-                android:onClick="checkButton"/>
+                android:text="3 days"/>
         </RadioGroup>
 
         <LinearLayout
@@ -74,40 +73,37 @@
                 android:textColor="#000000" />
 
             <RadioGroup
-                android:id="@+id/default2Btn"
+                android:id="@+id/setting2Btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp">
 
                 <RadioButton
-                    android:id="@+id/four"
+                    android:id="@+id/S201"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5 days"
-                    android:onClick="checkButton"/>
+                    android:text="5 days" />
 
                 <RadioButton
-                    android:id="@+id/five"
+                    android:id="@+id/S202"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3 days"
-                    android:onClick="checkButton"/>
+                    android:text="3 days" />
 
                 <RadioButton
-                    android:id="@+id/six"
+                    android:id="@+id/S203"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2 days"
-                    android:onClick="checkButton"/>
+                    android:text="2 days" />
             </RadioGroup>
 
             <Button
-                android:id="@+id/next"
+                android:id="@+id/saveBtn"
                 android:layout_width="179dp"
                 android:layout_height="70dp"
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="30dp"
-                android:text="Next"
+                android:text="Let's Eat Up "
                 android:textSize="18sp"
                 app:backgroundTint="@color/teal_200"
                 app:cornerRadius="30dp" />
@@ -115,8 +111,6 @@
 
         </LinearLayout>
     </LinearLayout>
-
-
 
 </ScrollView>
 

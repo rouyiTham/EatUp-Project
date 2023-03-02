@@ -4,29 +4,25 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Address
 import android.location.Geocoder
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener
 import com.google.android.gms.maps.model.Marker
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import java.io.IOException
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -35,13 +31,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private var currentMarker: Marker? = null
     private var fusedLocationClient: FusedLocationProviderClient? = null
     var currentLocation: Location? = null
-    private var userdb = Firebase.firestore
-
+    lateinit var userdb: DocumentReference
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
+
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -74,7 +70,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 val mapFragment =
                     supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
                 mapFragment.getMapAsync(this)
-
             }
         }
     }
@@ -112,19 +107,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
                     val newLatLng = LatLng(p0?.position!!.latitude, p0?.position!!.longitude)
                     placeMarker(newLatLng)
-
-                    
-
                 }
             }
 
             override fun onMarkerDragStart(p0: Marker) {
-
             }
-
         })
         }
-
 
 
     fun placeMarker(latLng: LatLng) {
@@ -143,25 +132,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val geocoder = Geocoder(this, Locale.getDefault())
         val address = geocoder.getFromLocation(lat!!, lon!!, 1)
 
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+        userdb = FirebaseFirestore.getInstance().document("Users/UsersProfile")
+
+        val updateMap: MutableMap<String, Any> = HashMap()
+        updateMap["user-address"] = address.toString()
+
         val next: TextView= findViewById(R.id.next)
         next.setOnClickListener {
             val intent = Intent(this, defaultSetting::class.java)
             startActivity(intent)
 
-
-            FirebaseDatabase.getInstance().getReference("userProfile")
-                .child("userAddress").setValue(address)
-                .addOnSuccessListener {
-                    Toast.makeText(applicationContext, "Pick up location saved", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(
-                        applicationContext,
-                        "Pick up location not saved",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            userdb.collection("Address").document(userId).set(updateMap).addOnSuccessListener {
+                Toast.makeText(this,"Successfully added",Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+                    exception : java.lang.Exception -> Toast.makeText(this,exception.toString(),Toast.LENGTH_LONG).show()
+            }
         }
         return address?.get(0)?.getAddressLine(0)
     }
