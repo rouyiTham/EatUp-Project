@@ -32,6 +32,7 @@ class Login : AppCompatActivity() {
         val loginBtn: Button = findViewById(R.id.loginBtn)
         loginBtn.setOnClickListener{
             performLogin()
+
         }
 
         val forgotpasswordBtn: TextView = findViewById(R.id.fpBtn)
@@ -63,7 +64,7 @@ class Login : AppCompatActivity() {
         auth.signInWithEmailAndPassword(emailInput, passwordInput)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, scanPage::class.java)
                     startActivity(intent)
 
                 } else {

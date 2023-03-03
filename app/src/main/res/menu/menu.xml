@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"></item>
+
+    <item
+        android:id="@+id/scan"
+        android:title="Scan"></item>
+
+    <item
+        android:id="@+id/resources"
+        android:title="Resources"></item>
+
+    <item
+        android:id="@+id/inventory"
+        android:title="Inventory"></item>
+
+    <item
+        android:id="@+id/account"
+        android:title="Android"></item>
+
+
+</menu>
