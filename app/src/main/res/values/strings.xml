@@ -12,13 +12,8 @@
 
 
     <!--ry front end-->
-    <string name="welcome_to_">Welcome To                EatUp\n</string>
-    <string name="greetings_e">Greetings! EatUp, as the name implies, encourages the community to finish their food and groceries as part of a collaborative effort to reduce food waste.
-
-        \nWe aim to promote sustainable consumption by tracking consumers' grocery expiration dates and by partnering with NGOs for food donations.</string>
-
-
-
+    <string name="welcome_to_">Welcome To EatUp</string>
+    <string name="greetings_e">Greetings! EatUp, as the name implies, encourages the community to finish their food and groceries as part of a collaborative effort to reduce food waste.We aim to promote sustainable consumption by tracking consumers grocery expiration dates and by partnering with NGOs for food donations.</string>
 
 
 

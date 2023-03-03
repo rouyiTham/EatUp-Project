@@ -66,7 +66,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         task?.addOnSuccessListener { location ->
             if (location != null) {
                 this.currentLocation = location
-
                 val mapFragment =
                     supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
                 mapFragment.getMapAsync(this)
