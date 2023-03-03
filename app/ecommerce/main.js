@@ -6,7 +6,7 @@ const fs = require("fs");
 const port = 3000;
 
 const server = http.createServer(function (req, res) {
-  res.writeHead(200, { "Content-Type": "text/jsx" });
+  res.writeHead(200, { "Content-Type": "text/js" });
   fs.readFile("app.jsx", function (error, data) {
     if (error) {
       res.writeHead(404);
