@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Homepage2Activity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/home_page_2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/home_page_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <View
+                android:id="@+id/e_sdg_logo_"
+                android:layout_width="match_parent"
+                android:layout_height="353dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/e_sdg_logo" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="430dp"
+                android:src="@drawable/e_sdg_logo" />
+
+            <TextView
+                android:id="@+id/what_are_th"
+                android:layout_width="125dp"
+                android:layout_height="127dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="94dp"
+                android:gravity="top"
+                android:text="@string/what_are_th"
+                android:textAppearance="@style/what_are_th"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/the_un_sdg_"
+                android:layout_width="227dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="143dp"
+                android:layout_marginTop="48dp"
+                android:gravity="top"
+                android:lineSpacingExtra="11sp"
+                android:text="@string/the_un_sdg_"
+                android:textAppearance="@style/the_un_sdg_"
+                android:translationY="-5.47sp" />
+
+            <TextView
+                android:id="@+id/the_un_sdg_2"
+                android:layout_width="227dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="144dp"
+                android:layout_marginTop="300dp"
+                android:gravity="top"
+                android:lineSpacingExtra="11sp"
+                android:text="@string/the_un_sdg_2"
+                android:textAppearance="@style/the_un_sdg_2"
+                android:translationY="-5.47sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_page_2">
+
+
+            <View
+                android:id="@+id/home_page_y"
+                android:layout_width="match_parent"
+                android:layout_height="893dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="-234dp"
+                android:background="@drawable/home_page_y" />
+
+            <View
+                android:id="@+id/goal_2_icon"
+                android:layout_width="108dp"
+                android:layout_height="105dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="11dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/goal_2_icon"
+                />
+
+            <TextView
+                android:id="@+id/goal_2_zero"
+                android:layout_width="239dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="135dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="50dp"
+                android:text="@string/goal_2_zero"
+                android:textAppearance="@style/goal_2_zero"
+                android:lineSpacingExtra="11sp"
+                android:translationY="-5.47sp"
+                android:gravity="top"
+                />
+
+
+            <TextView
+                android:id="@+id/goal_2_zero_2"
+                android:layout_width="239dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="135dp"
+                android:layout_marginTop="191dp"
+                android:gravity="top"
+                android:lineSpacingExtra="11sp"
+                android:text="@string/goal_2_zero_2"
+                android:textAppearance="@style/goal_2_zero_2"
+                android:translationY="-5.47sp" />
+
+            <View
+                android:id="@+id/goal_12_icon"
+                android:layout_width="108dp"
+                android:layout_height="105dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="261dp"
+                android:layout_marginTop="305dp"
+                android:background="@drawable/goal_12_icon" />
+
+            <TextView
+                android:id="@+id/goal_12_res"
+                android:layout_width="241dp"
+                android:layout_height="323dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="271dp"
+                android:gravity="top"
+                android:lineSpacingExtra="11sp"
+                android:text="@string/goal_12_res"
+                android:textAppearance="@style/goal_12_res"
+                android:translationY="-5.47sp" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="600dp"
+                android:layout_marginStart="150dp"
+                android:text="@string/join_now_2"
+                android:textColor="@color/black"
+                android:backgroundTint="#8ADECA"/>
+
+
+        </RelativeLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>
+
+
+
+
