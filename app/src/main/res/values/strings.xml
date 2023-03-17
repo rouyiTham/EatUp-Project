@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">EatUp</string>
     <string name="action_settings">Settings</string>
-    <string name ="open">Open</string>
-    <string name ="close">Close</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -44,6 +44,25 @@ Name\nPick up time\nPick up location\nItems
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
     <string name="alerts_for_you">Alerts For You</string>
+    <string name="who_are_we">Who Are We?</string>
+    <string name="tham_rou_yi">Tham Rou Yi</string>
+    <string name="thamrouyi_gmail_com">thamrouyi@gmail.com</string>
+    <string name="_010_2041036">010-2041036</string>
+    <string name="tan_xin_ming">Tan Xin Ming</string>
+    <string name="_011_10827357">011-10827357</string>
+    <string name="xinmingtan03_gmail_com">xinmingtan03@gmail.com</string>
+    <string name="ivy_chung_ai_shin">Ivy Chung Ai Shin</string>
+    <string name="ivyshin03_gmail_comm">ivyshin03@gmail.comm</string>
+    <string name="_017_6934118">017-6934118</string>
+    <string name="wong_jia_mien">Wong Jia Mien</string>
+    <string name="_016_5261366">016-5261366</string>
+    <string name="jiamienwong_gmail_com">jiamienwong@gmail.com</string>
+    <string name="join_now">Join Now</string>
+    <string name="home">Home</string>
+    <string name="how_to_use">How To Use</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="relationmap">relationmap</string>
+    <string name="how_eat_up_works">How Eat Up Works?</string>
 
 
 </resources>

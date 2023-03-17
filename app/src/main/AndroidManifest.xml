@@ -22,6 +22,12 @@
         android:theme="@style/Theme.EatUp.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".ContactusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HowtouseActivity"
+            android:exported="false" />
+        <activity
             android:name=".NgoAlertActivity"
             android:exported="false" />
         <activity
@@ -30,14 +36,13 @@
         <activity
             android:name=".Homepage1Activity"
             android:exported="true">
-        <intent-filter>
-            <category android:name="android.intent.action.MAIN" />
-            <category
-                android:name="android.intent.category.LAUNCHER"
-                android:theme="@style/Theme.EatUp.NoActionBar" />
-        </intent-filter>
+            <intent-filter>
+                <category android:name="android.intent.action.MAIN" />
+                <category
+                    android:name="android.intent.category.LAUNCHER"
+                    android:theme="@style/Theme.EatUp.NoActionBar" />
+            </intent-filter>
         </activity>
-
         <activity
             android:name=".contributionPage"
             android:exported="false" />
@@ -90,8 +95,7 @@
         <activity
             android:name=".Login"
             android:exported="false"
-            android:theme="@style/Theme.EatUp.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.EatUp.NoActionBar" />
         <activity
             android:name=".Register"
             android:exported="false"
