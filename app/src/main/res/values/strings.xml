@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">EatUp</string>
     <string name="action_settings">Settings</string>
-    <string name="open">Open</string>
-    <string name="close">Close</string>
+    <string name ="open">Open</string>
+    <string name ="close">Close</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -26,7 +26,7 @@
 The UN SDG (short for Sustainable Development Goals) is a global partnership of developed and developing countries to achieve the 2030 agenda for sustainable development. Our collective effort to achieve those 17 goals can ensure the peace and prosperity of the human race and the planet.</string>
 
     <string name="the_un_sdg_2">EatUp is essentially an integrated solution to two goals,which include:
-        \nGoal 2: Zero Hunger and \nGoal 12: Responsible Consumption and Production.</string>
+       \nGoal 2: Zero Hunger and \nGoal 12: Responsible Consumption and Production.</string>
 
     <string name="goal_2_zero">Goal 2: Zero Hunger targets food shortage issues and the undermining of food security happening worldwide.The goal is to improve the nutritional value of agricultural products and promote sustainable agriculture.\n</string>
     <string name="goal_2_zero_2">EatUp aims to raise more awareness on this issue by working hand in hand with NGOs to provide food donations to the needy.</string>

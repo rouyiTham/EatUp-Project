@@ -3,11 +3,12 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'kotlin-kapt'
 }
 
 android {
     namespace 'com.example.eatup'
-    compileSdk 33
+    compileSdk=33
 
     defaultConfig {
         applicationId "com.example.eatup"
@@ -36,16 +37,17 @@ android {
     buildFeatures {
         viewBinding true
     }
+    dataBinding.enabled = true
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
 
     //add firebase configuration//
@@ -55,9 +57,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.google.android.libraries.places:places:3.0.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.1.1'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.4'
     implementation platform('com.google.firebase:firebase-bom:31.2.2')
-    implementation 'androidx.core:core-ktx:+'
+    implementation 'androidx.core:core-ktx:1.9.0'
 
 
     testImplementation 'junit:junit:4.13.2'
@@ -70,4 +72,23 @@ dependencies {
     //navigation component
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+
+   //barcodeScanner
+    implementation 'com.google.mlkit:barcode-scanning:17.0.3'
+    implementation 'com.google.android.gms:play-services-mlkit-barcode-scanning:18.1.0'
+
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
+    implementation "io.coil-kt:coil:1.4.0"
+
+    //user permission
+    implementation 'com.karumi:dexter:6.2.2'
+
+    //room
+    def room_version = "2.4.2"
+
+    implementation "androidx.room:room-ktx:2.5.0"
+    implementation "androidx.room:room-runtime:2.5.0"
+    kapt "androidx.room:room-compiler:2.5.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.0"
 }

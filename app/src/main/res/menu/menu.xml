@@ -19,7 +19,7 @@
 
     <item
         android:id="@+id/account"
-        android:title="Android"></item>
+        android:title="Account"></item>
 
 
 </menu>

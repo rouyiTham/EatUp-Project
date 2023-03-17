@@ -5,6 +5,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name="androidx.multidex.MultiDexApplication"
@@ -14,7 +19,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EatUp"
+        android:theme="@style/Theme.EatUp.NoActionBar"
         tools:targetApi="31">
         <activity
             android:name=".NgoAlertActivity"
@@ -24,16 +29,45 @@
             android:exported="false" />
         <activity
             android:name=".Homepage1Activity"
+            android:exported="true">
+        <intent-filter>
+            <category android:name="android.intent.action.MAIN" />
+            <category
+                android:name="android.intent.category.LAUNCHER"
+                android:theme="@style/Theme.EatUp.NoActionBar" />
+        </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".contributionPage"
+            android:exported="false" />
+        <activity
+            android:name=".accountPage"
+            android:exported="false" />
+        <activity
+            android:name=".parentItem"
+            android:exported="false" />
+        <activity
+            android:name=".nestedItem"
+            android:exported="false" />
+        <activity
+            android:name=".Inventory"
+            android:exported="false" />
+        <activity
+            android:name=".Resources"
             android:exported="false" />
         <activity
             android:name=".scanPage"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.EatUp.NoActionBar" />
         <activity
             android:name=".ForgotPassword"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.EatUp.NoActionBar" />
         <activity
             android:name=".defaultSetting"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.EatUp.NoActionBar" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -51,18 +85,17 @@
 
         <activity
             android:name=".MapsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.EatUp.NoActionBar" />
         <activity
             android:name=".Login"
-            android:exported="true">
-            <intent-filter>
-                <category android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false"
+            android:theme="@style/Theme.EatUp.NoActionBar">
         </activity>
         <activity
             android:name=".Register"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.EatUp.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="false"

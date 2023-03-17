@@ -33,52 +33,61 @@
         android:text="Back"
         android:textColor="#000000" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="150dp"
-        android:padding="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="105dp"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <EditText
-            android:layout_width="350dp"
-            android:layout_height="60dp"
-            android:id="@+id/signup_emailText"
-            android:layout_marginTop="30dp"
-            android:padding="8dp"
-            android:background="@drawable/textborder"
-            android:hint="Email"/>
+            <EditText
+                android:id="@+id/signup_emailText"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/textborder"
+                android:hint="Email"
+                android:padding="8dp" />
 
-        <EditText
-            android:layout_width="350dp"
-            android:layout_height="60dp"
-            android:id="@+id/signup_passwordText"
-            android:layout_marginTop="30dp"
-            android:padding="8dp"
-            android:background="@drawable/textborder"
-            android:hint="Password"/>
+            <EditText
+                android:id="@+id/signup_phoneText"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/textborder"
+                android:hint="Phone"
+                android:padding="8dp" />
 
-        <EditText
-            android:layout_width="350dp"
-            android:layout_height="60dp"
-            android:id="@+id/signup_CpasswordText"
-            android:layout_marginTop="30dp"
-            android:padding="8dp"
-            android:background="@drawable/textborder"
-            android:hint="Confirm Password"/>
+            <EditText
+                android:id="@+id/signup_passwordText"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/textborder"
+                android:hint="Password"
+                android:padding="8dp" />
 
-        <Button
-            android:id="@+id/next"
-            android:layout_width="179dp"
-            android:layout_height="70dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="30dp"
-            android:text="Next"
-            android:textSize="18sp"
-            app:backgroundTint="@color/teal_200"
-            app:cornerRadius="30dp" />
+            <EditText
+                android:id="@+id/signup_CpasswordText"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/textborder"
+                android:hint="Confirm Password"
+                android:padding="8dp" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/next"
+                android:layout_width="179dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="30dp"
+                android:text="Next"
+                android:textSize="18sp"
+                app:backgroundTint="@color/teal_200"
+                app:cornerRadius="30dp" />
+
+        </LinearLayout>
     </LinearLayout>
 
 

@@ -46,7 +46,6 @@ class Login : AppCompatActivity() {
        //     val intent = Intent(this, partnerPage:: class.java)
             startActivity(intent)
         }
-
     }
 
     private fun performLogin() {

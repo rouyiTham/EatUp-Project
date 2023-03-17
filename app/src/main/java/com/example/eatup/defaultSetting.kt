@@ -1,22 +1,18 @@
 package com.example.eatup
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore.Audio.Radio
-import android.view.View
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.TextView
 import android.widget.Toast
+import com.example.eatup.model.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.auth.User
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.handleCoroutineException
 
 class defaultSetting : AppCompatActivity() {
     var radioGroup: RadioGroup? = null
@@ -24,21 +20,26 @@ class defaultSetting : AppCompatActivity() {
     lateinit var S1: RadioButton
     lateinit var S2: RadioButton
     private lateinit var save: Button
-    lateinit var userdb: DocumentReference
+    private lateinit var databaseReference: DatabaseReference
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_default_setting)
 
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        userdb = FirebaseFirestore.getInstance().document("Users/UsersProfile")
+        auth = Firebase.auth
+        databaseReference =
+            FirebaseDatabase.getInstance("https://learned-skill-377010-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .getReference("Users")
+        //val uid = FirebaseAuth.getInstance().currentUser!!.uid
+        // userdb = FirebaseFirestore.getInstance().document("Users/UsersProfile")
 
         save = findViewById(R.id.saveBtn)
 
         radioGroup = findViewById(R.id.setting1Btn)
         radioGroup2 = findViewById(R.id.setting2Btn)
 
-        save.setOnClickListener{
+        save.setOnClickListener {
             val selectedOption: Int = radioGroup!!.checkedRadioButtonId
             S1 = findViewById(selectedOption)
             val setting1 = S1.text.toString()
@@ -48,16 +49,25 @@ class defaultSetting : AppCompatActivity() {
             val setting2 = S2.text.toString()
 
             val userSetting = hashMapOf(
-            "first-setting" to setting1 ,
-            "second-setting" to setting2
+                "first-setting" to setting1,
+                "second-setting" to setting2
             )
 
-            userdb.collection("DefaultSettings").document(userId).set(userSetting).addOnSuccessListener {
-            Toast.makeText(this,"Successfully added",Toast.LENGTH_SHORT).show()
-            }.addOnFailureListener {
-                exception : java.lang.Exception -> Toast.makeText(this,exception.toString(),Toast.LENGTH_LONG).show()
-            }
-        }
+            val uid = auth.currentUser?.uid
 
+            if (uid != null) {
+                databaseReference.child(uid).child("Setting").setValue(userSetting).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        Toast.makeText(baseContext,"Success", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(baseContext,"Failed", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            val intent = Intent(this, scanPage::class.java)
+            startActivity(intent)
+
+        }
     }}
 

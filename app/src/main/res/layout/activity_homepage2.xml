@@ -16,7 +16,10 @@
             android:id="@+id/home_page_2"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/home_page_2"
+            android:width="390dp"
+            android:height="844dp"
+            android:viewportWidth="390"
+            android:viewportHeight="844"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" >
 
@@ -160,7 +163,7 @@
                 android:translationY="-5.47sp" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/joinowBtn2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="600dp"

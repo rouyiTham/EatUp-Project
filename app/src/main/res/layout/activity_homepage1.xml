@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,13 +8,16 @@
     tools:context=".Homepage1Activity">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout2"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/home_page_1"
+        android:width="390dp"
+        android:height="844dp"
+        android:viewportWidth="390"
+        android:viewportHeight="844"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -49,20 +51,19 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="27dp"
             android:layout_marginTop="333dp"
-            android:textSize="20sp"
             android:text="@string/greetings_e"
             android:textAppearance="@style/greetings_e"
-            />
+            android:textSize="20sp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/joinowBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="735dp"
             android:layout_marginStart="34dp"
+            android:layout_marginTop="735dp"
+            android:backgroundTint="#8ADECA"
             android:text="@string/join_now_1"
-            android:textColor="#000000"
-            android:backgroundTint="#8ADECA"/>
+            android:textColor="#000000" />
 
 
     </RelativeLayout>
