@@ -22,6 +22,12 @@
         android:theme="@style/Theme.EatUp.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".TqNgoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BeourpartnerActivity"
+            android:exported="false" />
+        <activity
             android:name=".ContactusActivity"
             android:exported="false" />
         <activity

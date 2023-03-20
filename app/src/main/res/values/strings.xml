@@ -14,8 +14,8 @@
 
 
     <!--ry front end-->
-    <string name="welcome_to_">Welcome To \nEatUp</string>
-    <string name="greetings_e">Greetings! EatUp, as the name implies, encourages the community to finish their food and groceries as part of a collaborative effort to reduce food waste.We aim to promote sustainable consumption by tracking consumers grocery expiration dates and by partnering with NGOs for food donations.</string>
+    <string name="welcome_to_">Welcome To</string>
+    <string name="greetings_e">Greetings! EatUp, as the name implies, encourages the community to finish their food and groceries as part of a collaborative effort to reduce food waste. \n\nWe aim to promote sustainable consumption by tracking consumers grocery expiration dates and by partnering with NGOs for food donations.</string>
     <string name="join_now_1">JOIN NOW</string>
 
 
@@ -63,6 +63,18 @@ Name\nPick up time\nPick up location\nItems
     <string name="contact_us">Contact Us</string>
     <string name="relationmap">relationmap</string>
     <string name="how_eat_up_works">How Eat Up Works?</string>
+    <string name="we_are_welcoming_food_banks_and_ngo_s_to_provide_volunteer_groups_to_assist_us_in_food_collections_and_distribution_of_surplus_food_to_the_needy_register_now_to_be_our_mission_partner">We are welcoming Food Banks And NGO’s to provide volunteer groups to assist us in food collections and distribution of surplus food to the needy. \n\nRegister now to be our mission partner!</string>
+    <string name="submit">SUBMIT</string>
+    <string name="email">Email</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="website">Website</string>
+    <string name="your_message">Your Message</string>
+    <string name="organization_name">Organization Name</string>
+    <string name="eatup">EatUp</string>
+
+    <string name="thank_you_f">
+\nThank you for your interest in supporting EatUp. \nOur team will contact you shortly to discuss your enquiry further.\n
+</string>
 
 
 </resources>

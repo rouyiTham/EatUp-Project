@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,38 +20,50 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <FrameLayout
+        <ImageView
+            android:id="@+id/imageView4"
             android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:background="#8ADECA">
-
-
-            <TextView
-                android:layout_width="226dp"
-                android:layout_height="131dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="162dp"
-                android:gravity="top"
-                android:lineSpacingExtra="14dp"
-                android:text="@string/welcome_to_"
-                android:textAppearance="@style/welcome_to_" />
-
-            <ImageView
-                android:layout_width="146dp"
-                android:layout_height="144dp"
-                android:layout_marginStart="250dp"
-                android:layout_marginTop="150dp"
-                android:src="@drawable/main_logo" />
-
-        </FrameLayout>
+            android:layout_height="700dp"
+            android:layout_marginEnd="-200dp"
+            app:srcCompat="@drawable/eclipse" />
 
         <TextView
-            android:layout_width="252dp"
-            android:layout_height="364dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="190dp"
+            android:gravity="top"
+            android:lineSpacingExtra="14dp"
+            android:text="@string/welcome_to_"
+            android:textAppearance="@style/welcome_to_"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="220dp"
+            android:textColor="@color/black"
+            android:gravity="top"
+            android:lineSpacingExtra="14dp"
+            android:text="@string/eatup"
+            android:textSize="70sp" />
+
+
+        <ImageView
+            android:layout_width="174dp"
+            android:layout_height="167dp"
+            android:layout_marginStart="190dp"
+            android:layout_marginTop="190dp"
+            android:src="@drawable/main_logo" />
+
+        <TextView
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="27dp"
-            android:layout_marginTop="333dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="322dp"
             android:text="@string/greetings_e"
             android:textAppearance="@style/greetings_e"
             android:textSize="20sp" />
@@ -60,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="34dp"
-            android:layout_marginTop="735dp"
+            android:layout_marginTop="650dp"
             android:backgroundTint="#8ADECA"
             android:text="@string/join_now_1"
             android:textColor="#000000" />
