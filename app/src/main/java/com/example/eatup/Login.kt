@@ -43,9 +43,34 @@ class Login : AppCompatActivity() {
 
         val partnerBtn: TextView = findViewById(R.id.partnerBtn)
         partnerBtn.setOnClickListener{
-       //     val intent = Intent(this, partnerPage:: class.java)
+            val intent = Intent(this, BeourpartnerActivity:: class.java)
             startActivity(intent)
         }
+
+        val homebtn:TextView = findViewById(R.id.homebtn)
+        homebtn.setOnClickListener {
+            val intent = Intent(this,Homepage1Activity::class.java)
+            startActivity(intent)
+        }
+
+        val howtousebtn:TextView=findViewById(R.id.howtousebtn)
+        howtousebtn.setOnClickListener {
+            val intent= Intent(this,HowtouseActivity::class.java)
+            startActivity(intent)
+        }
+
+        val contactusbtn:TextView = findViewById(R.id.contactusbtn)
+        contactusbtn.setOnClickListener {
+            val intent = Intent(this,ContactusActivity::class.java)
+            startActivity(intent)
+        }
+
+        val joinnowwhite:Button= findViewById(R.id.joinnowwhite)
+        joinnowwhite.setOnClickListener {
+            val intent= Intent(this,Login::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun performLogin() {

@@ -27,7 +27,7 @@ class ForgotPassword : AppCompatActivity() {
 
         resetPText = findViewById(R.id.resetPText)
         resetBtn = findViewById(R.id.resetBtn)
-        backBtn = findViewById(R.id.backBtn)
+        backBtn = findViewById(R.id.backbtn)
 
         resetBtn.setOnClickListener{
             val sPassword = resetPText.text.toString()
@@ -42,6 +42,29 @@ class ForgotPassword : AppCompatActivity() {
 
         backBtn.setOnClickListener{
             val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+        }
+        val homebtn:TextView = findViewById(R.id.homebtn)
+        homebtn.setOnClickListener {
+            val intent = Intent(this,Homepage1Activity::class.java)
+            startActivity(intent)
+        }
+
+        val howtousebtn:TextView=findViewById(R.id.howtousebtn)
+        howtousebtn.setOnClickListener {
+            val intent= Intent(this,HowtouseActivity::class.java)
+            startActivity(intent)
+        }
+
+        val contactusbtn:TextView = findViewById(R.id.contactusbtn)
+        contactusbtn.setOnClickListener {
+            val intent = Intent(this,ContactusActivity::class.java)
+            startActivity(intent)
+        }
+
+        val joinnowwhite:Button= findViewById(R.id.joinnowwhite)
+        joinnowwhite.setOnClickListener {
+            val intent= Intent(this,Login::class.java)
             startActivity(intent)
         }
 
