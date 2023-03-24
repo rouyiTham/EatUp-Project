@@ -41,7 +41,7 @@ class contributionPage : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
         pickDate()
 
-        item_RV = findViewById(R.id.item_RV)
+        //item_RV = findViewById(R.id.item_RV)
         item_RV.setHasFixedSize(true)
         item_RV.layoutManager = LinearLayoutManager(this)
 

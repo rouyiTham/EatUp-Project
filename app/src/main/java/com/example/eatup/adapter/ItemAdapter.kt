@@ -43,11 +43,11 @@ class ItemAdapter(context: FoodAdapter, arrayList_c: ArrayList<String>, itemList
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val checkBox : CheckBox
-        var item_RV : RecyclerView
+
 
         init {
             checkBox = itemView.findViewById(R.id.checkBox)
-            item_RV = itemView.findViewById(R.id.item_RV)
+
 
         }
     }
