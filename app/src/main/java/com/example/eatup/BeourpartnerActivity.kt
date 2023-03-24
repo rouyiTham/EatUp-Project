@@ -11,6 +11,12 @@ class BeourpartnerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_beourpartner)
 
+        val submitbtn: Button= findViewById(R.id.submitbtn)
+        submitbtn.setOnClickListener {
+            val intent= Intent(this,TqNgoActivity::class.java)
+            startActivity(intent)
+        }
+
         val homebtn: TextView = findViewById(R.id.homebtn)
         homebtn.setOnClickListener {
             val intent = Intent(this,Homepage1Activity::class.java)

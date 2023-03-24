@@ -123,7 +123,7 @@
             android:layout_marginStart="1dp"
             android:text="Remind me when food expiring in"
             app:layout_constraintStart_toStartOf="@+id/settingTextView"
-            app:layout_constraintTop_toBottomOf="@+id/settingTextView"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/settingTextView"/>
 
         <TextView
             android:id="@+id/setting1Text"
@@ -141,14 +141,14 @@
             android:layout_marginStart="54dp"
             android:text="Send reminder every"
             app:layout_constraintBaseline_toBaselineOf="@+id/setting2Text"
-            app:layout_constraintStart_toStartOf="parent"></TextView>
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/setting2Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="3dp"
             android:text="Setting 2"
             app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -157,7 +157,7 @@
             android:id="@+id/contributionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="176dp"
+            android:layout_marginBottom="140dp"
             android:text="Your Contribution : "
             android:textColor="@color/black"
             android:textSize="25sp"
@@ -171,7 +171,7 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="266dp"
             android:layout_height="40dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="@+id/contributionTextView"
             app:layout_constraintTop_toBottomOf="@+id/contributionTextView" />
 
