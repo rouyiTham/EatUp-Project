@@ -14,7 +14,7 @@ class TqNgoActivity : AppCompatActivity() {
 
         val backbtnhome: Button = findViewById(R.id.backbtnhome)
         backbtnhome.setOnClickListener {
-            val intent= Intent(this,Homepage1Activity::class.java)
+            val intent= Intent(this,Homepage2Activity::class.java)
             startActivity(intent)
         }
     }
