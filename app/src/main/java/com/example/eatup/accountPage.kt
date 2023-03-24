@@ -33,7 +33,7 @@ class accountPage : AppCompatActivity() {
         databaseReference.child(authid).get().addOnSuccessListener {
             if (it.exists()) {
                 Toast.makeText(this, "Successfully read", Toast.LENGTH_SHORT).show()
-               val emailtext = it.child("Profile").child("email").value
+                val emailtext = it.child("Profile").child("email").value
                 val phonetext = it.child("Profile").child("phone").value
                 val settingtext1 = it.child("Setting").child("first-setting").value
                 val settingtext2 = it.child("Setting").child("second-setting").value

@@ -249,6 +249,26 @@ class scanPage : AppCompatActivity() {
 
                     textResult.text  = "TYPE_CONTACT_INFO \ntitle: $title \norganization: $organization \nname: $name \nphone: $phone \n\nrawValue: $rawValue"
                 }
+                Barcode.TYPE_ISBN -> {
+                    val bookurl = barcode.url
+
+                    Log.d(TAG,"extractBarcodeQRCodeInfo : TYPE_ISBN")
+                    Log.d(TAG,"extractBarcodeQRCodeInfo : URL:$bookurl")
+
+                    textResult.text = "TYPE_ISBN \nBookUrl : $bookurl \n\nrawValue : $rawValue"
+                }
+
+                Barcode.FORMAT_QR_CODE -> {
+                    val bookurl = barcode.url
+                    val bookurllink = "${bookurl?.url}"
+
+                    Log.d(TAG,"extractBarcodeQRCodeInfo: FORMAT_QR_CODE")
+                    Log.d(TAG,"extractBarCodeQRCodeInfo: bookurllink:$bookurllink")
+
+                    textResult.text = "FORMAT_QR_CDE \nbookurllink: $bookurllink \n\nrawValue: $rawValue"
+
+                }
+
                 else ->{
                     textResult.text = "rawValue: $rawValue"
                 }

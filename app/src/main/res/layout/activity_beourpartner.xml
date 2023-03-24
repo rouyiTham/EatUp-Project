@@ -172,7 +172,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:layout_marginEnd="164dp"
+        android:layout_marginEnd="145dp"
         android:backgroundTint="#8ADECA"
         android:text="@string/submit"
         android:textSize="20sp"

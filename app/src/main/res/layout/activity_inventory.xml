@@ -16,7 +16,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="?actionBarSize"
-            android:background="@color/teal_200"
+            android:background="#8ADECA"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingStart="15dp"
