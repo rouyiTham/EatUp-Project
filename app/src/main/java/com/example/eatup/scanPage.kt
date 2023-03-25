@@ -22,8 +22,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.eatup.databinding.ActivityInventoryBinding
 import com.example.eatup.databinding.ActivityScanPageBinding
+import com.example.eatup.model.FoodWithInventory
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationView
 import com.google.mlkit.vision.barcode.BarcodeScanner
@@ -94,7 +94,7 @@ class scanPage : AppCompatActivity() {
                     startActivity(intent)
                 }
                 R.id.inventory -> {
-                    val intent = Intent(this,Inventory::class.java)
+                    val intent = Intent(this,FoodInventory::class.java)
                     startActivity(intent)
                 }
                 R.id.account -> {
@@ -106,7 +106,7 @@ class scanPage : AppCompatActivity() {
             true
         }
 
-        //allow to select the menu items in menu.xml
+        //allow to select the menu items in menu.xml//
         fun onOptionsItemSelected(item: MenuItem): Boolean {
             if(imageMenu.onOptionsItemSelected(item)) {
                 return true
@@ -249,6 +249,16 @@ class scanPage : AppCompatActivity() {
 
                     textResult.text  = "TYPE_CONTACT_INFO \ntitle: $title \norganization: $organization \nname: $name \nphone: $phone \n\nrawValue: $rawValue"
                 }
+                Barcode.FORMAT_QR_CODE -> {
+                    val bookurl = barcode.url
+                    val bookurllink = "${bookurl?.url}"
+
+                    Log.d(TAG,"extractBarcodeQRCodeInfo: FORMAT_QR_CODE")
+                    Log.d(TAG,"extractBarCodeQRCodeInfo: bookurllink:$bookurllink")
+
+                    textResult.text = "FORMAT_QR_CDE \nbookurllink: $bookurllink \n\nrawValue: $rawValue"
+
+                }
                 Barcode.TYPE_ISBN -> {
                     val bookurl = barcode.url
 
@@ -280,7 +290,6 @@ class scanPage : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         galleryActivityResultLauncher.launch(intent)
-
     }
 
     private val galleryActivityResultLauncher = registerForActivityResult(

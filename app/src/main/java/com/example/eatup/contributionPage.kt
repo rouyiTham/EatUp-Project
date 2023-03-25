@@ -13,11 +13,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eatup.adapter.FoodAdapter
-import com.example.eatup.adapter.ItemAdapter
+
 
 import java.util.Calendar
 
-private lateinit var item_RV : RecyclerView
 class contributionPage : AppCompatActivity(), DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
 
     var day = 0
@@ -41,20 +40,7 @@ class contributionPage : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
         pickDate()
 
-        //item_RV = findViewById(R.id.item_RV)
-        item_RV.setHasFixedSize(true)
-        item_RV.layoutManager = LinearLayoutManager(this)
-
-        val itemAdapter = FoodAdapter().itemListener?.let {
-            ItemAdapter(
-                FoodAdapter(), FoodAdapter().arrayList_c,
-                it
-            )
-        }
-        item_RV.adapter = itemAdapter
-
     }
-
     private fun getDateTimeCalendar(){
         val cal= Calendar.getInstance()
         day = cal.get(Calendar.DAY_OF_MONTH)

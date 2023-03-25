@@ -34,6 +34,12 @@
             android:name=".HowtouseActivity"
             android:exported="false" />
         <activity
+            android:name=".eachFood"
+            android:exported="false" />
+        <activity
+            android:name=".FoodInventory"
+            android:exported="false" />
+        <activity
             android:name=".NgoAlertActivity"
             android:exported="false" />
         <activity
@@ -56,25 +62,18 @@
             android:name=".accountPage"
             android:exported="false" />
         <activity
-            android:name=".parentItem"
-            android:exported="false" />
-        <activity
-            android:name=".nestedItem"
-            android:exported="false" />
-        <activity
-            android:name=".Inventory"
-            android:exported="false" />
-        <activity
             android:name=".Resources"
             android:exported="false" />
         <activity
             android:name=".scanPage"
             android:exported="false"
             android:theme="@style/Theme.EatUp.NoActionBar" />
+
         <activity
             android:name=".ForgotPassword"
             android:exported="false"
             android:theme="@style/Theme.EatUp.NoActionBar" />
+
         <activity
             android:name=".defaultSetting"
             android:exported="false"
