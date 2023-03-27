@@ -34,5 +34,12 @@ class HowtouseActivity : AppCompatActivity() {
             val intent= Intent(this,Login::class.java)
             startActivity(intent)
         }
+
+        val joinnowgreen: Button= findViewById(R.id.joinnowgreen)
+        joinnowgreen.setOnClickListener {
+            val intent= Intent(this,Login::class.java)
+            startActivity(intent)
+        }
+
     }
 }
