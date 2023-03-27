@@ -75,7 +75,7 @@ class FoodInventory : AppCompatActivity() {
                 }
                 R.id.inventory -> {
                     val intent = Intent(this,FoodInventory::class.java)
-                    startActivity(intent)
+                    //startActivity(intent)
                 }
                 R.id.account -> {
                     val intent = Intent(this,accountPage::class.java)

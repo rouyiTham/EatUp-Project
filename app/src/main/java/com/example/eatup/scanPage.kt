@@ -87,7 +87,7 @@ class scanPage : AppCompatActivity() {
                 }
                 R.id.scan -> {
                     val intent = Intent(this,ActivityScanPageBinding::class.java)
-                    startActivity(intent)
+                    //startActivity(intent)
                 }
                 R.id.resources -> {
                     val intent = Intent(this,Resources::class.java)

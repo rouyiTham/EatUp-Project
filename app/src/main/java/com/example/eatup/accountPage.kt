@@ -23,7 +23,9 @@ class accountPage : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
+        super.onCreate(savedInstanceState)
+        binding = ActivityAccountPageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
 
@@ -54,7 +56,7 @@ class accountPage : AppCompatActivity() {
                 }
                 R.id.account -> {
                     val intent = Intent(this,accountPage::class.java)
-                    startActivity(intent)
+                    //startActivity(intent)
                 }
             }
             true
@@ -67,9 +69,6 @@ class accountPage : AppCompatActivity() {
             }
             return super.onOptionsItemSelected(item)
         }
-        super.onCreate(savedInstanceState)
-        binding = ActivityAccountPageBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         auth = Firebase.auth
         val authid = Firebase.auth.currentUser!!.uid
