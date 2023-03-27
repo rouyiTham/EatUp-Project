@@ -17,19 +17,6 @@ data class Inventory(
     @PrimaryKey(autoGenerate = false) val receipt_Tag : Int,
     @ColumnInfo(name = "buyDate") val buyDate : String,
     //@ColumnInfo(name = "id") val id: String = Firebase.auth.currentUser!!.uid,
-
 )
 
-/*class InventoryTypeConverter {
-    @TypeConverter
-    fun fromString(value : String?): ArrayList<String>{
-        val listType = object : TypeToken<ArrayList<String>>(){}.type
-        return Gson().fromJson(value , listType)
-    }
-}
-
-@TypeConverter
-fun fromInventoryArrayList(list:ArrayList<String?>):String {
-    return Gson().toJson(list)
-}*/
 

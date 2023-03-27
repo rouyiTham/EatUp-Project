@@ -22,6 +22,12 @@
         android:theme="@style/Theme.EatUp.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".each_ngo_alert"
+            android:exported="false" />
+        <activity
+            android:name=".each_contribute_item"
+            android:exported="false" />
+        <activity
             android:name=".TqNgoActivity"
             android:exported="false" />
         <activity
@@ -68,12 +74,10 @@
             android:name=".scanPage"
             android:exported="false"
             android:theme="@style/Theme.EatUp.NoActionBar" />
-
         <activity
             android:name=".ForgotPassword"
             android:exported="false"
             android:theme="@style/Theme.EatUp.NoActionBar" />
-
         <activity
             android:name=".defaultSetting"
             android:exported="false"

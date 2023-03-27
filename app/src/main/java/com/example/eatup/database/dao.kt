@@ -21,6 +21,13 @@ interface dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUserFoodRef(ref2 :List<UserFoodInventoryRef>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertContributeItems(contribution : ContributeFoodItems)
+
+    @Transaction
+    @Query("SELECT * FROM ContributeFoodItems")
+    fun getAllContribution(): ContributeFoodItems
+
     /*@Delete
     fun deleteFoodItem()*/
 

@@ -8,12 +8,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import com.example.eatup.database.database
 import com.example.eatup.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
 class Register : AppCompatActivity() {
 
@@ -26,9 +29,7 @@ class Register : AppCompatActivity() {
 
         auth = Firebase.auth
         databaseReference =
-            FirebaseDatabase.getInstance("https://learned-skill-377010-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Users")
-
+            FirebaseDatabase.getInstance("https://learned-skill-377010-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users")
 
         val back: TextView = findViewById(R.id.back)
         back.setOnClickListener {

@@ -88,10 +88,17 @@ class Login : AppCompatActivity() {
         auth.signInWithEmailAndPassword(emailInput, passwordInput)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val intent = Intent(this, scanPage::class.java)
-                    startActivity(intent)
+                    if(emailInput == "ngo@gmail.com" && passwordInput == "123456"){
+                        val intent1 = Intent(this,NgoAlertActivity::class.java)
+                        startActivity(intent1)
+                    }
+                    else {
+                        val intent2 = Intent(this, scanPage::class.java)
+                        startActivity(intent2)
+                    }
 
-                } else {
+                }
+                else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT).show()

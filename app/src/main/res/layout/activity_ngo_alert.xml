@@ -10,68 +10,27 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:context=".NgoAlertActivity">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="283dp"
             android:layout_height="51dp"
-            android:layout_marginTop="84dp"
-            android:layout_marginEnd="64dp"
             android:text="@string/alerts_for_you"
-            android:textSize="34sp"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="34sp"
+            tools:layout_editor_absoluteX="64dp"
+            tools:layout_editor_absoluteY="84dp" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="316dp"
-            android:layout_height="210dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="144dp"
-            android:layout_marginEnd="1dp"
-            android:backgroundTint="#FDFDBD"
-            app:cardCornerRadius="40dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="318dp"
+            android:layout_height="740dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/name_pick_u"
-                android:layout_width="205dp"
-                android:layout_height="151dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="60dp"
-                android:gravity="center_vertical"
-                android:lineSpacingExtra="7sp"
-                android:textSize="20sp"
-                android:text="@string/name_pick_u"
-                android:textAppearance="@style/name_pick_u" />
-
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="155dp"
-                android:backgroundTint="#11FC36"
-                android:text="@string/accept"
-                android:textColor="@color/black"
-                app:cornerRadius="20dp" />
-
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="175dp"
-                android:layout_marginTop="155dp"
-                android:backgroundTint="#FF0000"
-                android:text="@string/reject"
-                android:textColor="@color/black"
-                app:cornerRadius="20dp" />
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:listitem="@layout/activity_each_ngo_alert" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,16 +1,15 @@
 package com.example.eatup.database
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import com.example.eatup.model.*
 
 @Database(
-    entities = [UserInventory::class,Inventory::class,FoodItem::class,FoodInventoryRef::class,UserFoodInventoryRef::class],
-    version = 3,
+    entities = [UserInventory::class,Inventory::class,FoodItem::class,FoodInventoryRef::class,UserFoodInventoryRef::class,ContributeFoodItems::class],
+    version = 6,
     exportSchema = false
 )
+@TypeConverters(InventoryTypeConverter::class)
 abstract class database:RoomDatabase(){
     abstract fun detailDao() : dao
 
