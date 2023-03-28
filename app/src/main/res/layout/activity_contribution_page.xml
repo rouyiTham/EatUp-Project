@@ -24,7 +24,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/teal_200"
+        android:background="#8ADECA"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
@@ -34,7 +34,7 @@
         android:layout_height="42dp"
         android:layout_below="@+id/your_contribution"
         android:layout_marginTop="51dp"
-        android:background="@color/teal_200"
+        android:background="#8ADECA"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_marginTop="380dp"
-        android:background="@color/teal_200"
+        android:background="#8ADECA"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         />
@@ -112,7 +112,7 @@
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_marginTop="540dp"
-        android:background="@color/teal_200"
+        android:background="#8ADECA"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
@@ -135,7 +135,7 @@
         android:text="Finish"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:backgroundTint="@color/teal_200"
+        app:backgroundTint="#8ADECA"
         app:cornerRadius="30dp" />
 
     <ImageButton

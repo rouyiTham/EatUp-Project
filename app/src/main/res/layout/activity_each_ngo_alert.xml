@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="316dp"
-        android:layout_height="210dp"
+        android:layout_height="240dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="1dp"
@@ -27,18 +27,63 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
             android:lineSpacingExtra="7sp"
             android:text="Email"
             android:textAppearance="@style/name_pick_u"
             android:textSize="20sp" />
 
 
+        <TextView
+            android:id="@+id/phone_no"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:lineSpacingExtra="7sp"
+            android:text="Phone Number"
+            android:layout_marginTop="40dp"
+            android:textAppearance="@style/name_pick_u"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/pick_up_time"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:lineSpacingExtra="7sp"
+            android:text="Pick Up Time"
+            android:layout_marginTop="70dp"
+            android:textAppearance="@style/name_pick_u"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/pick_up_location"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:lineSpacingExtra="7sp"
+            android:text="Pick Up Location"
+            android:layout_marginTop="100dp"
+            android:textAppearance="@style/name_pick_u"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/item"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:lineSpacingExtra="7sp"
+            android:text="Items"
+            android:layout_marginTop="130dp"
+            android:textAppearance="@style/name_pick_u"
+            android:textSize="20sp" />
+
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="155dp"
+            android:layout_marginTop="180dp"
             android:backgroundTint="#11FC36"
             android:text="@string/accept"
             android:textColor="@color/black"
@@ -49,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="175dp"
-            android:layout_marginTop="155dp"
+            android:layout_marginTop="180dp"
             android:backgroundTint="#FF0000"
             android:text="@string/reject"
             android:textColor="@color/black"
