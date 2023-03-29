@@ -16,7 +16,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="411dp"
             android:layout_height="54dp"
-            android:background="@color/teal_200"
+            android:background="#8ADECA"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingStart="15dp"
@@ -43,8 +43,8 @@
             android:layout_width="137dp"
             android:layout_height="25dp"
             android:text="Your Inventory"
-            android:textSize="20sp"
             android:textColor="@color/black"
+            android:textSize="20sp"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             tools:layout_editor_absoluteX="16dp" />
 
@@ -53,9 +53,13 @@
             android:id="@+id/contributeBtn"
             android:layout_width="147dp"
             android:layout_height="36dp"
+            android:backgroundTint="#539165"
             android:text="Contribute"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.855"
             app:layout_constraintStart_toEndOf="@+id/textView5"
-            tools:layout_editor_absoluteY="50dp" />
+            tools:layout_editor_absoluteY="52dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/foodItem_rv"
