@@ -81,7 +81,7 @@ class scanPage : AppCompatActivity() {
         //to navigate to each page
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.home -> {
+                R.id.logout -> {
                     val intent = Intent(this, Login::class.java)
                     startActivity(intent)
                 }
