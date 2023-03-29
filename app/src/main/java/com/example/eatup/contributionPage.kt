@@ -68,10 +68,28 @@ class contributionPage : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
         pickDate()
 
-        //Once radioButton is clicked//
-       findViewById<RadioButton>(R.id.radioButton1).setOnClickListener{
-           findDefaultLocation()
-       }
+
+        fun onRadioButtonClicked(view: View) {
+            if (view is RadioButton) {
+                // Is the button now checked?
+                val checked = view.isChecked
+
+                // Check which radio button was clicked
+                when (view.getId()) {
+                    R.id.radioButton1 ->
+                        if (checked) {
+                            findViewById<RadioButton>(R.id.radioButton1).setOnClickListener{
+                                findDefaultLocation()
+                            }
+                        }
+                    R.id.radioButton2 ->
+                        if (checked) {
+                            // select specified pick up location in the future
+                        }
+                }
+            }
+        }
+
 
         //once finishBtn is clicked //
         findViewById<Button>(R.id.finishbutton).setOnClickListener {
