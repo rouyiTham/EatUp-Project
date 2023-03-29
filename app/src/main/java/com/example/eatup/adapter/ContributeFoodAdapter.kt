@@ -1,4 +1,4 @@
-package com.example.eatup.adapter
+/*package com.example.eatup.adapter
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -23,7 +23,7 @@ class ContributeFoodAdapter(private var contributionList: List<ContributeFoodIte
 
     override fun onBindViewHolder(holder: ContributeFoodviewHolder, position: Int) {
         for(i in contributionList) {
-            holder.binding.foodText.text = i.foodItems.toString()
+            holder.binding.foodText = i.foodItems.toString()
         }
     }
 
@@ -37,4 +37,4 @@ class ContributeFoodAdapter(private var contributionList: List<ContributeFoodIte
         )
 
 
-}
+}*/

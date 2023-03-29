@@ -28,6 +28,7 @@ android {
             }
         }
         compileOptions {
+            coreLibraryDesugaringEnabled true
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
         }
@@ -79,7 +80,7 @@ android {
         implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
         //barcodeScanner
-        implementation 'com.google.mlkit:barcode-scanning:17.0.3'
+        implementation 'com.google.mlkit:barcode-scanning:17.1.0'
         implementation 'com.google.android.gms:play-services-mlkit-barcode-scanning:18.1.0'
 
         implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
@@ -99,4 +100,6 @@ android {
 
         //swipe gestures
         implementation "com.github.xabaras:RecyclerViewSwipeDecorator:1.4"
+
+        coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
     }

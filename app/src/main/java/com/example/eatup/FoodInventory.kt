@@ -33,11 +33,17 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.time.temporal.ChronoUnit
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 @SuppressLint("StaticFieldLeak")
 private lateinit var binding : ActivityFoodInventoryBinding
-private var contributeItemList = mutableListOf<UserFoodWithInventory>()
+//private var contributeItemList = mutableListOf<UserFoodWithInventory>()
 val foodItems = ArrayList<String>()
 private var foodWithInventoryList  = mutableListOf<UserFoodWithInventory>()
 var foodAdapter: FoodAdapter? = null
@@ -57,11 +63,6 @@ class FoodInventory : AppCompatActivity(){
         foodAdapter = FoodAdapter(foodWithInventoryList)
 
         binding.foodItemRv.adapter = foodAdapter
-
-        binding.contributeBtn.setOnClickListener {
-            val intent = Intent(this@FoodInventory, contributionPage::class.java)
-            startActivity(intent)
-        }
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
 
@@ -116,9 +117,9 @@ class FoodInventory : AppCompatActivity(){
         )
 
         val foodItem: List<FoodItem> = arrayListOf(
-            FoodItem(1, "Kimchi", "02-02-2023"),
-            FoodItem(2, "Tuna", "02-02-2025"),
-            FoodItem(3, "Sardine", "01-01-2024")
+            FoodItem(1, "Kimchi", "29-03-2023"),
+            FoodItem(2, "Tuna", "01-04-2023"),
+            FoodItem(3, "Sardine", "31-03-2023")
         )
 
         val ref: List<FoodInventoryRef> = arrayListOf(
@@ -126,7 +127,6 @@ class FoodInventory : AppCompatActivity(){
             FoodInventoryRef(101, 2),
             FoodInventoryRef(102, 3)
         )
-
 
         val ref2: List<UserFoodInventoryRef> = arrayListOf(
             UserFoodInventoryRef(Firebase.auth.currentUser!!.uid, 1),
@@ -149,9 +149,21 @@ class FoodInventory : AppCompatActivity(){
         // val sp = db.detailDao().getFoodItemWithInventory()
         val st = db.detailDao().getUserFoodItem()
 
+        //This should change to only auto add//
         if (foodWithInventoryList.isEmpty()) {
             foodWithInventoryList.addAll(st)
             foodAdapter!!.notifyDataSetChanged()
+           /* val df: DateTimeFormatter =
+                DateTimeFormatterBuilder() // case insensitive to parse JAN and FEB
+                    .appendPattern("dd-MM-yyyy") // create formatter (use English Locale to parse month names)
+                    .toFormatter(Locale.ENGLISH)
+            val expiryDate : LocalDate = LocalDate.parse(foodWithInventoryList.toString(),df)
+            val dateNow : LocalDate? = LocalDate.now()
+            if (dateNow != null) {
+                if (dateNow.until(expiryDate, ChronoUnit.DAYS).equals(0) ){
+                    foodWithInventoryList.removeAll(foodWithInventoryList)
+                }
+            }*/
         }
 
         //foodWithInventoryList = db.detailDao().getFoodItemWithInventory() as MutableList<FoodWithInventory>
@@ -178,6 +190,9 @@ class FoodInventory : AppCompatActivity(){
                             ItemTouchHelper.LEFT -> {
                                 val deleteData = foodWithInventoryList[position]
                                 foodWithInventoryList.removeAt(position)
+
+                                //It should then delete from the ROOM dbs//
+                                ///////////////////////////////////////////
                                 foodAdapter!!.notifyDataSetChanged()
                                 Snackbar.make(
                                     binding.foodItemRv,
@@ -199,13 +214,22 @@ class FoodInventory : AppCompatActivity(){
                                 val uid = auth.currentUser?.uid
 
                                 foodItems.add(contributeData.foodItem.foodName)
-                                //Log.i("TAG", foodItems.toString())
-
-                                val contribution = ContributeFoodItems(Firebase.auth.currentUser!!.uid,foodItems)
+                                Log.i("TAG", foodItems.toString())
+                                val contribution = ContributeFoodItems(Firebase.auth.currentUser!!.uid,
+                                    foodItems)
 
                                 lifecycleScope.launch {
-                                    database(this@FoodInventory).detailDao().insertContributeItems(contribution)
+                                    database(this@FoodInventory).detailDao()
+                                        .insertContributeItems(contribution)
                                 }
+
+                                binding.contributeBtn.setOnClickListener {
+                                    foodItems.removeAll(foodItems.toSet())
+                                    val intent = Intent(this@FoodInventory, contributionPage::class.java)
+                                    startActivity(intent)
+
+                                }
+
 
                                 /*databaseReference =
                                     FirebaseDatabase.getInstance("https://learned-skill-377010-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("NGO")

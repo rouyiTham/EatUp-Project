@@ -10,6 +10,7 @@ import com.example.eatup.model.*
     exportSchema = false
 )
 @TypeConverters(InventoryTypeConverter::class)
+
 abstract class database:RoomDatabase(){
     abstract fun detailDao() : dao
 

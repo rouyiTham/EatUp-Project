@@ -5,25 +5,25 @@ import android.os.Bundle
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
+import android.util.Log
 import android.view.View
-import android.widget.DatePicker
-import android.widget.TimePicker
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.RadioButton
-import android.widget.TextView
+import android.widget.*
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.eatup.adapter.ContributeFoodAdapter
+//import com.example.eatup.adapter.ContributeFoodAdapter
 import com.example.eatup.adapter.FoodAdapter
 import com.example.eatup.database.database
 //import com.example.eatup.adapter.ContributeFoodAdapter
 import com.example.eatup.databinding.ActivityContributionPageBinding
 import com.example.eatup.model.ContributeFoodItems
 import com.example.eatup.model.UserFoodWithInventory
+import com.example.eatup.model.ViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
 
 import java.util.Calendar
@@ -31,12 +31,8 @@ import java.util.Calendar
 @SuppressLint("StaticFieldLeak")
 private lateinit var binding : ActivityContributionPageBinding
 private var contributeItemList = mutableListOf<ContributeFoodItems>()
-var contributeFoodAdapter: ContributeFoodAdapter? = null
-@SuppressLint("StaticFieldLeak")
-val radioButton1 : RadioButton = binding.radioButton1
+//private var contributeFoodAdapter: ContributeFoodAdapter? = null
 
-@SuppressLint("StaticFieldLeak")
-//lateinit var ContributeFoodAdapter : ContributeFoodAdapter
 
 class contributionPage : AppCompatActivity(), DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
 
@@ -59,27 +55,47 @@ class contributionPage : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         val view: View = binding.root
         setContentView(view)
 
-        binding.contributeItemRV.layoutManager = LinearLayoutManager(this)
-        contributeFoodAdapter = ContributeFoodAdapter(contributeItemList)
-       binding.contributeItemRV.adapter = contributeFoodAdapter
+        //binding.contributeItemRV.layoutManager = LinearLayoutManager(this)
+        //contributeFoodAdapter = ContributeFoodAdapter(contributeItemList)
+        //binding.contributeItemRV.adapter = contributeFoodAdapter
 
         val st = database(this).detailDao().getAllContribution()
         contributeItemList.add(st)
 
+        binding.foodText.text = st.foodItems.toString()
         // get reference to button
         findViewById<Button>(R.id.btnTimePicker)
 
         pickDate()
 
-       radioButton1.setOnClickListener{
+        //Once radioButton is clicked//
+       findViewById<RadioButton>(R.id.radioButton1).setOnClickListener{
            findDefaultLocation()
        }
+
+        //once finishBtn is clicked //
+        findViewById<Button>(R.id.finishbutton).setOnClickListener {
+            database(this@contributionPage).detailDao().deleteAllFoodItem()
+            contributeItemList.removeAll(listOf(st))
+            val intent = Intent(this@contributionPage,FoodInventory::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun findDefaultLocation() {
         val authid = Firebase.auth.currentUser!!.uid
-        val databaseReference: DatabaseReference = FirebaseDatabase.getInstance("https://learned-skill-377010-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users") .child(authid).child("Address")
+        val databaseReference: DatabaseReference = FirebaseDatabase.getInstance("https://learned-skill-377010-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users")
+        databaseReference.child(authid).get().addOnSuccessListener {
+            if(it.exists()){
+                val address = it.child("Address").value
+                Log.d("TAG",address.toString())
+                //save address into NGO firebase//
 
+            } else {
+                Toast.makeText(this,"Failed",Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun getDateTimeCalendar(){
@@ -117,7 +133,12 @@ class contributionPage : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
         val textView = findViewById<TextView>(R.id.tv_textTime)
         textView.text="$savedDay-$savedMonth-$savedYear\nTime: $savedHour : $savedMinute"
+
+
     }
+
+
+
 }
 
 

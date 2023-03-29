@@ -28,8 +28,13 @@ interface dao {
     @Query("SELECT * FROM ContributeFoodItems")
     fun getAllContribution(): ContributeFoodItems
 
-    /*@Delete
-    fun deleteFoodItem()*/
+    @Query("DELETE FROM ContributeFoodItems")
+    fun deleteAllFoodItem()
+
+
+    //this func wont work becuz userfoodwithinvetory is either an entity or a collection of array//
+   /* @Delete
+    fun deleteFoodItem(userFoodWithInventory: UserFoodWithInventory)*/
 
     @Transaction
     @Query("SELECT * FROM Inventory")
