@@ -1,4 +1,6 @@
 const { MongoClient } = require("mongodb");
+//import * as MongoClient from "../../../../node_modules/mongodb/mongodb";
+module.exports = { mainThree };
 
 global.listItems = "Hello its me!";
 global.listVegetables = "Vegetables";
@@ -417,3 +419,12 @@ Hello its me!
 Database List - Connection is Successfull
 Object name, id and price - Query was successfull
 ObjectList Array - Requested array of data */
+
+/*module.exports = {
+  objectList,
+  listDatabases,
+  mainTwo,
+  mainThree,
+  mainFour,
+  mainFive,
+}; */
