@@ -5,11 +5,11 @@ import androidx.room.*
 import com.example.eatup.model.*
 
 @Database(
-    entities = [UserInventory::class,Inventory::class,FoodItem::class,FoodInventoryRef::class,UserFoodInventoryRef::class,ContributeFoodItems::class],
-    version = 6,
+    entities = [UserInventory::class,Inventory::class,FoodItem::class,FoodInventoryRef::class,UserFoodInventoryRef::class,ContributeFoodItems::class,NGOdata::class],
+    version = 7,
     exportSchema = false
 )
-@TypeConverters(InventoryTypeConverter::class)
+@TypeConverters(InventoryTypeConverter::class,CfoodTypeConverter::class)
 
 abstract class database:RoomDatabase(){
     abstract fun detailDao() : dao

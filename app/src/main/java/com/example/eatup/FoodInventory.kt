@@ -39,6 +39,7 @@ import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.time.Duration.Companion.days
 
 
 @SuppressLint("StaticFieldLeak")
@@ -117,9 +118,9 @@ class FoodInventory : AppCompatActivity(){
         )
 
         val foodItem: List<FoodItem> = arrayListOf(
-            FoodItem(1, "Kimchi", "29-03-2023"),
-            FoodItem(2, "Tuna", "01-04-2023"),
-            FoodItem(3, "Sardine", "31-03-2023")
+            FoodItem(1, "RIBENA REGULAR 1000ML", "29-03-2023"),
+            FoodItem(2, "AYAMAS BREADED DUMMET 850G","01-04-2023"),
+            FoodItem(3, "UHT MILKY FULLCREAM 125ML", "31-03-2023")
         )
 
         val ref: List<FoodInventoryRef> = arrayListOf(
@@ -152,18 +153,6 @@ class FoodInventory : AppCompatActivity(){
         //This should change to only auto add//
         if (foodWithInventoryList.isEmpty()) {
             foodWithInventoryList.addAll(st)
-            foodAdapter!!.notifyDataSetChanged()
-           /* val df: DateTimeFormatter =
-                DateTimeFormatterBuilder() // case insensitive to parse JAN and FEB
-                    .appendPattern("dd-MM-yyyy") // create formatter (use English Locale to parse month names)
-                    .toFormatter(Locale.ENGLISH)
-            val expiryDate : LocalDate = LocalDate.parse(foodWithInventoryList.toString(),df)
-            val dateNow : LocalDate? = LocalDate.now()
-            if (dateNow != null) {
-                if (dateNow.until(expiryDate, ChronoUnit.DAYS).equals(0) ){
-                    foodWithInventoryList.removeAll(foodWithInventoryList)
-                }
-            }*/
         }
 
         //foodWithInventoryList = db.detailDao().getFoodItemWithInventory() as MutableList<FoodWithInventory>
@@ -192,7 +181,7 @@ class FoodInventory : AppCompatActivity(){
                                 foodWithInventoryList.removeAt(position)
 
                                 //It should then delete from the ROOM dbs//
-                                ///////////////////////////////////////////
+
                                 foodAdapter!!.notifyDataSetChanged()
                                 Snackbar.make(
                                     binding.foodItemRv,

@@ -12,5 +12,4 @@ import kotlin.collections.ArrayList
 data class UserInventory(
     @PrimaryKey(autoGenerate = false) val user_id: String,
     @ColumnInfo(name = "Inventory_ID") val inventory_id : Int
-
 )

@@ -135,12 +135,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         currentMarker?.showInfoWindow()
     }
 
-    fun getAddress(lat: Double, lon: Double): String? {
+    private fun getAddress(lat: Double, lon: Double): String? {
         val geocoder = Geocoder(this, Locale.getDefault())
         val address = geocoder.getFromLocation(lat, lon, 1)
 
         val updateMap: MutableMap<String, Any> = HashMap()
-        updateMap["User-address"] = address.toString()
+        updateMap["Useraddress"] = address.toString()
 
         val uid = auth.currentUser?.uid
 

@@ -24,6 +24,13 @@ interface dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertContributeItems(contribution : ContributeFoodItems)
 
+    @Insert
+    fun insertNGOdata(NGOdata : NGOdata)
+
+    /*@Transaction
+    @Query("SELECT * FROM NGOdata")
+    fun getAllNGOdata(): NGOdata*/
+
     @Transaction
     @Query("SELECT * FROM ContributeFoodItems")
     fun getAllContribution(): ContributeFoodItems
@@ -31,9 +38,12 @@ interface dao {
     @Query("DELETE FROM ContributeFoodItems")
     fun deleteAllFoodItem()
 
+    /*@Query()
+    fun deleteEachFood(st :List<FoodItem>)*/
 
-    //this func wont work becuz userfoodwithinvetory is either an entity or a collection of array//
-   /* @Delete
+
+    /*this func wont work becuz userfoodwithinvetory is either an entity or a collection of array
+    @Delete
     fun deleteFoodItem(userFoodWithInventory: UserFoodWithInventory)*/
 
     @Transaction

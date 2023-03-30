@@ -35,6 +35,4 @@ class ContributeFoodAdapter(private var contributionList: List<ContributeFoodIte
         RecyclerView.ViewHolder(
             binding.root
         )
-
-
 }*/

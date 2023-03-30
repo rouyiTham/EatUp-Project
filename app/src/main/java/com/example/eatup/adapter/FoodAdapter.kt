@@ -27,21 +27,27 @@ class FoodAdapter(private val foodItemList: List<UserFoodWithInventory>) :
         holder.binding.foodText.text = foodItemList[position].foodItem.foodName
 
         val df: DateTimeFormatter =
-            DateTimeFormatterBuilder() // case insensitive to parse JAN and FEB
+            DateTimeFormatterBuilder() // case insensitive to parse the date string
                 .appendPattern("dd-MM-yyyy") // create formatter (use English Locale to parse month names)
                 .toFormatter(Locale.ENGLISH)
-        val expiryDate : LocalDate = LocalDate.parse(foodItemList[position].foodItem.expiryDate,df)
-        val dateNow : LocalDate? = LocalDate.now()
+        val expiryDate: LocalDate = LocalDate.parse(foodItemList[position].foodItem.expiryDate.toString(), df)
+        val dateNow: LocalDate? = LocalDate.now()
+        val expiredfood = dateNow?.until(expiryDate,ChronoUnit.DAYS).toString()
 
         /*if (dateNow != null) {
             dateNow.until(expiryDate,ChronoUnit.DAYS)
         }*/
 
         if (dateNow != null) {
-            holder.binding.expiryDateText.text = "Expiring in " + dateNow.until(expiryDate,ChronoUnit.DAYS).toString() + " days"
+            holder.binding.expiryDateText.text =
+                "Expiring in $expiredfood days"
+            if(expiredfood <= 0.toString()){
+                holder.binding.expiryDateText.text =
+                    "Expired"
+            }
         }
     }
-
+    
     override fun getItemCount(): Int {
         return foodItemList.size
     }
