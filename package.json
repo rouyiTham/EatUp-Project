@@ -3,6 +3,7 @@
     "tailwindcss": "^3.2.7"
   },
   "dependencies": {
+    "firebase-admin": "^11.5.0",
     "mongodb": "^5.1.0"
   }
 }
