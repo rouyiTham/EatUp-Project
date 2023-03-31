@@ -18,6 +18,9 @@ const getFirestore = require("firebase/firestore"); */
 //https://www.mongodb.com/blog/post/quick-start-nodejs-mongodb-how-to-get-connected-to-your-database
 //test case to ensure database is connected
 
+MongoDB_transaction(8292550568944);
+var transaction_items_queried;
+
 function MongoDB_ecommerce() {
   async function test() {
     const uri =
@@ -201,7 +204,7 @@ function MongoDB_transaction(barcode) {
           db.item_4,
           db.item_5
         );
-        console.log(items);
+        transaction_items_queried = items;
       });
     }
 
@@ -221,6 +224,10 @@ function MongoDB_transaction(barcode) {
         (this.item_5 = item_5);
     }
   }
+
+  setTimeout(() => {
+    console.log(transaction_items_queried);
+  }, 500);
 }
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 /*const firebaseConfig = {
@@ -268,5 +275,3 @@ admin.initializeApp({
   );
 }
 */
-
-MongoDB_transaction(8292550568944);
