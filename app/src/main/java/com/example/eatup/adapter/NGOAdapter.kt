@@ -1,10 +1,12 @@
 package com.example.eatup.adapter
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eatup.R
@@ -29,7 +31,7 @@ class NGOAdapter(private val ngolist: ArrayList<RetrievalData>): RecyclerView.Ad
         holder.email.text = "Email : "+ currentItem.Email
         holder.phone.text = "Phone" + currentItem.Phone
         holder.time.text = "PickUpTime :" + currentItem.PickUpTime
-        holder.address.text = "PickUpLoc: " + currentItem.Useraddress.toString().substring(22,100)
+        holder.address.text = "PickUpLoc: " + currentItem.Useraddress.toString()
         holder.foodItems.text = "Food : " + currentItem.FoodToBeContributed
 
     }

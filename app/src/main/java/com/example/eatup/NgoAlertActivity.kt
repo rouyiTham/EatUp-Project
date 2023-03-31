@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eatup.adapter.NGOAdapter
 import com.example.eatup.database.database
+import com.example.eatup.databinding.ActivityEachNgoAlertBinding
 import com.example.eatup.model.RetrievalData
 import com.example.eatup.viewmodel.NGOviewmodel
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +27,7 @@ class NgoAlertActivity : AppCompatActivity() {
     private lateinit var ngo_rv : RecyclerView
     private lateinit var ngoArrayList : ArrayList<RetrievalData>
     private lateinit var builder: AlertDialog.Builder
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,29 +37,7 @@ class NgoAlertActivity : AppCompatActivity() {
         ngo_rv.layoutManager = LinearLayoutManager(this)
         ngo_rv.setHasFixedSize(true)
 
-        val acceptBtn : Button = findViewById<Button>(R.id.accept_Btn)
-        acceptBtn.setOnClickListener {
-            builder = AlertDialog.Builder(this)
-            builder.setTitle("Note : ")
-                .setMessage("Thank You For Your HardWork !")
-                .setCancelable(true)
-                .setPositiveButton("BACK") { dialogInterface, it ->
-                    finish()
-                }
-                .show()
-        }
 
-        val rejectBtn : Button = findViewById(R.id.reject_Btn)
-        rejectBtn.setOnClickListener {
-            builder = AlertDialog.Builder(this)
-            builder.setTitle("Note : ")
-                .setMessage("We will notify the user !")
-                .setCancelable(true)
-                .setPositiveButton("BACK") { dialogInterface, it ->
-                    finish()
-                }
-                .show()
-        }
         ngoArrayList = arrayListOf<RetrievalData>()
         getNGOData()
 
