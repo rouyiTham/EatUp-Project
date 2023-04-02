@@ -1,25 +1,22 @@
 const { MongoClient } = require("mongodb");
-//const { initializeApp } = require("firebase-admin/app");
-//const { getDatabase, ref, child, get } = require("firebase/database");
-//const firebase = require("firebase/app");
-/*const {
-  //getFirestore,
-  collection,
-  getDocs,
-} = require("firebase/firestore/lite");
-const { getAuth } = require("firebase/auth");
-const getFirestore = require("firebase/firestore"); */
-
-//const app = initializeApp();
-//const dbRef = ref(getDatabase());
-
-//initialize powershell: $env:GOOGLE_APPLICATION_CREDENTIALS="C:\Users\shiel\Documents\GitHub\EatUp-Project\app\android_app\learned-skill-377010-firebase-adminsdk-g6av5-860e5717c4.json"
 
 //https://www.mongodb.com/blog/post/quick-start-nodejs-mongodb-how-to-get-connected-to-your-database
 //test case to ensure database is connected
 
 MongoDB_transaction(8292550568944);
+setTimeout(() => {
+  MongoDB_getData();
+}, 2000);
+
+setTimeout(() => {
+  global.returnArray = JSON.stringify(global.sampleListTwo);
+  console.log("Return data in JSON Format: " + global.returnArray);
+}, 3500);
+
 var transaction_items_queried;
+global.listItems = "x";
+global.sampleListTwo = [];
+global.returnArray = "x";
 
 function MongoDB_ecommerce() {
   async function test() {
@@ -229,49 +226,89 @@ function MongoDB_transaction(barcode) {
     console.log(transaction_items_queried);
   }, 500);
 }
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-/*const firebaseConfig = {
-  apiKey: "AIzaSyBq3P_UYD8bqA8pAx8zYjvmVp33j56uSqY",
-  authDomain: "learned-skill-377010.firebaseapp.com",
-  databaseURL:
-    "https://learned-skill-377010-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "learned-skill-377010",
-  storageBucket: "learned-skill-377010.appspot.com",
-  messagingSenderId: "946385159300",
-  appId: "1:946385159300:web:9fed894ad77af273b46ed1",
-  measurementId: "G-QWQT3WEVE8",
-};
 
-//Initialiaze Firebase App
-const app = initializeApp(firebaseConfig);
+function MongoDB_getData() {
+  const uri =
+    "mongodb+srv://eatup:eatup@ecommerce-cluster-1.wkax8qo.mongodb.net/?retryWrites=true&w=majority";
+  const client = new MongoClient(uri);
 
-//Use Firebase Services
-const database = getFirestore(app);
-const auth = getAuth(app);
-const db = getFirestore();
+  const databaseName = client.db("ecommerce_inventory_1");
+  const collectionName = databaseName.collection("ecommerce_backend_2");
 
-//Initialize Firebase Admin SDK
-/*const serviceAccount = require("./learned-skill-377010-firebase-adminsdk-g6av5-860e5717c4.json");
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL:
-    "https://learned-skill-377010-42892.asia-southeast1.firebasedatabase.app/",
-}); */
-
-/*function realtimeDatabase() {
-  const db = getDatabase();
-  const ref = db.ref(
-    "https://learned-skill-377010-42892.asia-southeast1.firebasedatabase.app/"
-  );
-
-  ref.on(
-    "value",
-    (snapshot) => {
-      console.log(snapshot.val());
-    },
-    (errorObject) => {
-      console.log("The read failed: " + errorObject.name);
+  class fullTransactionDetails {
+    constructor(
+      mocksQueried,
+      product_id,
+      product_name,
+      food_identifier,
+      expiration_date
+    ) {
+      this.product_id = product_id;
+      this.product_name = product_name;
+      this.identifier = food_identifier;
+      this.quantity = mocksQueried;
+      this.expiration_date = expiration_date;
     }
+  }
+
+  function applyFunctionToPropertiesExcludingKeys(obj, excludeKeys) {
+    for (let key in obj) {
+      if (!excludeKeys.includes(key)) {
+        //constructor function here
+        async function listItemsFunc(collectionName) {
+          //var sampleListTwo = [];
+          let itemsTest = await collectionName.find({
+            product_id: transaction_items_queried[key].product_id,
+            batch_no: transaction_items_queried[key].batch_no,
+          });
+          itemsTest.forEach((db) => {
+            const itemPlace = new fullTransactionDetails(
+              transaction_items_queried[key].quantity,
+              db.product_id,
+              db.product_name,
+              db.food_identifier,
+              db.expiration_date
+            );
+            global.sampleListTwo.push(itemPlace);
+          });
+
+          setTimeout(() => {
+            console.log(global.sampleListTwo);
+          }, 500);
+        }
+
+        listItemsFunc(collectionName);
+      }
+    }
+  }
+
+  /*async function listItemsFunc(collectionName) {
+    var sampleListTwo = [];
+    let itemsTest = await collectionName.find({
+      product_id: ` transaction_items_queried.${key}.product_id`,
+      batch_no: `transaction_items_queried.${key}.batch_no`,
+    });
+    itemsTest.forEach((db) => {
+      const itemPlace = new fullTransactionDetails(
+        transaction_items_queried,
+        db.product_id,
+        db.product_name,
+        db.food_identifier
+      );
+      sampleListTwo.push(itemPlace);
+    });
+    function reassign() {
+      global.listItems = sampleListTwo;
+      console.log(global.listItems);
+    }
+
+    setTimeout(() => {
+      reassign();
+    }, 500);
+  } */
+
+  applyFunctionToPropertiesExcludingKeys(
+    transaction_items_queried,
+    "transaction_id"
   );
 }
-*/
