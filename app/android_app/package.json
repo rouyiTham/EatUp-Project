@@ -1,14 +1,22 @@
 {
   "name": "android_app",
   "version": "1.0.0",
-  "description": "",
   "main": "inventory_logic_API.js",
+  "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chai-http": "^4.3.0",
+    "express": "^4.18.2",
     "firebase": "^9.18.0"
+  },
+  "keywords": [],
+  "description": "",
+  "devDependencies": {
+    "mocha": "^10.2.0"
   }
 }

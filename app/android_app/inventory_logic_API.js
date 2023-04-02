@@ -1,17 +1,26 @@
 const { MongoClient } = require("mongodb");
+module.exports = { MongoDB_ecommerce, MongoDB_transaction, MongoDB_getData };
 
 //https://www.mongodb.com/blog/post/quick-start-nodejs-mongodb-how-to-get-connected-to-your-database
 //test case to ensure database is connected
 
-MongoDB_transaction(8292550568944);
+/*MongoDB_transaction(8292550568944);
 setTimeout(() => {
   MongoDB_getData();
 }, 2000);
-
 setTimeout(() => {
   global.returnArray = JSON.stringify(global.sampleListTwo);
-  console.log("Return data in JSON Format: " + global.returnArray);
+  console.log(global.returnArray);
+}, 3500);*/
+
+/*MongoDB_transaction(4981829262400);
+setTimeout(() => {
+  MongoDB_getData();
 }, 3500);
+setTimeout(() => {
+  global.returnArray = JSON.stringify(global.sampleListTwo);
+  console.log(global.returnArray);
+}, 7000); */
 
 var transaction_items_queried;
 global.listItems = "x";
