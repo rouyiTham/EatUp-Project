@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const inventory_logic = require("./inventory_logic_API");
+const fs = require("fs");
 
 global.sampleListTwo = [];
 global.returnArray = "returnArray";
@@ -55,6 +56,11 @@ app.all("/dataQuery/:transaction_id", function (req, res) {
     });
     res.send(global.returnArray);
   }, 3000);
+  setTimeout(() => {
+    global.sampleListTwo = [];
+    global.returnArray = "returnArray";
+    transaction_items_queried = "Queried";
+  }, 5000);
 });
 
 /*app.all("/dataQuery/:transaction_id([0-9]+)", function (req, res) {
@@ -68,4 +74,11 @@ app.all("/dataQuery/:transaction_id", function (req, res) {
   }, 5000);
 });*/
 
-app.listen(3000);
+//app.listen(3000);
+
+//Starts the server
+const PORT = parseInt(process.env.PORT) || 8080;
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+  console.log("Press Ctrl+C to quit.");
+});
