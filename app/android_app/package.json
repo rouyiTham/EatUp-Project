@@ -4,7 +4,6 @@
   "main": "inventory_logic_API.js",
   "type": "commonjs",
   "scripts": {
-    "test": "mocha",
     "start": "node server.js"
   },
   "author": "",

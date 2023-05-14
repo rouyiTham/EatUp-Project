@@ -1,5 +1,9 @@
 const { MongoClient } = require("mongodb");
-module.exports = { MongoDB_ecommerce, MongoDB_transaction, MongoDB_getData };
+module.exports = {
+  MongoDB_ecommerce: MongoDB_ecommerce,
+  MongoDB_transaction: MongoDB_transaction,
+  MongoDB_getData: MongoDB_getData,
+};
 
 //https://www.mongodb.com/blog/post/quick-start-nodejs-mongodb-how-to-get-connected-to-your-database
 //test case to ensure database is connected
@@ -20,7 +24,7 @@ setTimeout(() => {
 setTimeout(() => {
   global.returnArray = JSON.stringify(global.sampleListTwo);
   console.log(global.returnArray);
-}, 7000); */
+}, 7000);*/
 
 var transaction_items_queried;
 global.listItems = "x";
@@ -180,7 +184,7 @@ function MongoDB_ecommerce() {
     }, 3000);
   }
 
-  //overallFunction();
+  overallFunction();
 
   /* Succesful execution of the functions shall yield the following order:
   Hello its me!

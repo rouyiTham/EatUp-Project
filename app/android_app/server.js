@@ -1,15 +1,15 @@
 const express = require("express");
 const app = express();
 const http = require("http");
-const {
-  MongoDB_ecommerce,
-  MongoDB_transaction,
-  MongoDB_getData,
-} = require("./inventory_logic_API.js");
+const inventory_logic = require("./inventory_logic_API");
 
-app.get("/", (req, res) => {
+global.sampleListTwo = [];
+global.returnArray = "returnArray";
+transaction_items_queried = "Queried";
+
+/*app.get("/", (req, res) => {
   res.send("Hello from App Engine!");
-});
+});*/
 
 // Listen to the App Engine-specified port, or 8080 otherwise
 /*const PORT = process.env.PORT || 8080;
@@ -28,9 +28,9 @@ setTimeout(() => {
 }, 3500); */
 
 function dataProcessing(data) {
-  MongoDB_transaction(data);
+  inventory_logic.MongoDB_transaction(data);
   setTimeout(() => {
-    MongoDB_getData();
+    inventory_logic.MongoDB_getData();
   }, 1000);
 
   setTimeout(() => {
@@ -43,26 +43,29 @@ function dataProcessing(data) {
   }, 2250);
 }
 
-const server = http.createServer((req, res) => {
-  if (req.method === "POST" && req.url === "/process") {
-    let body = "";
-    req.on("data", (chunk) => {
-      body += chunk.toString();
+app.all("/dataQuery/:transaction_id", function (req, res) {
+  let id = parseInt(req.params.transaction_id);
+  setTimeout(() => {
+    dataProcessing(id);
+  }, 500);
+  setTimeout(() => {
+    console.log(req.params.transaction_id);
+    res.set({
+      "Content-Type": "application/json",
     });
-    req.on("end", () => {
-      const result = dataProcessing(body);
-      res.setHeader("Content-Type", "application/json");
-      res.end(result);
-    });
-  } else {
-    res.statusCode = 404;
-    res.end();
-  }
+    res.send(global.returnArray);
+  }, 3000);
 });
 
-const PORT = 8080;
-server.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}.`);
-});
+/*app.all("/dataQuery/:transaction_id([0-9]+)", function (req, res) {
+  let id = parseInt(req.params.transaction_id);
+  console.log(typeof id);
+  setTimeout(() => {
+    inventory_logic.MongoDB_transaction(id);
+  }, 1000);
+  setTimeout(() => {
+    inventory_logic.MongoDB_getData();
+  }, 5000);
+});*/
 
-//dataProcessing(4981829262400);
+app.listen(3000);
