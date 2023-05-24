@@ -213,15 +213,10 @@ class scanPage : AppCompatActivity() {
         for(barcode in barcodes){
             val bound = barcode.boundingBox
             val corners = barcode.cornerPoints
-            val rawValue = barcode.rawValue
-            Log.d(TAG,"extractBarcodeQRCodeInfo: rawValue: $rawValue")
+            //val rawValue = barcode
+            //Log.d(TAG,"extractBarcodeQRCodeInfo: rawValue: $rawValue")
 
-
-            val valueType = barcode.valueType
-
-            when(valueType){
-                Barcode.FORMAT_EAN_13 -> {
-                    val rawValue = barcode.rawValue
+                    val rawValue = Barcode.FORMAT_EAN_13
 
                     textResult.text = "\nrawValue : $rawValue"
 
@@ -239,6 +234,7 @@ class scanPage : AppCompatActivity() {
                             }
                         }
                     })
+
                     /*val repository = Repository()
                     val viewModelFactory = MainViewModelFactory(repository)
                     viewModel = ViewModelProvider(this,viewModelFactory).get(MainViewModel::class.java)
@@ -251,11 +247,7 @@ class scanPage : AppCompatActivity() {
                         }
                     })*/
                 }
-                else ->{
-                    textResult.text = "rawValue: $rawValue"
-                }
-            }
-        }
+
     }
 
 
