@@ -1,12 +1,13 @@
 package com.example.eatup.database
 
-import android.content.Context
+import android.app.Application
 import androidx.room.*
 import com.example.eatup.model.*
+import com.example.eatup.scanPage
 
 @Database(
-    entities = [UserInventory::class,Inventory::class,FoodItem::class,FoodInventoryRef::class,UserFoodInventoryRef::class,ContributeFoodItems::class,NGOdata::class],
-    version = 7,
+    entities = [UserInventory::class,Inventory::class,FoodItem::class,FoodInventoryRef::class,UserFoodInventoryRef::class,ContributeFoodItems::class,NGOdata::class,WebDataItem::class],
+    version = 20,
     exportSchema = false
 )
 @TypeConverters(InventoryTypeConverter::class,CfoodTypeConverter::class)
@@ -18,13 +19,13 @@ abstract class database:RoomDatabase(){
         @Volatile private var instance : database?=null
         private val lock = Any()
 
-        operator fun invoke(context: Context) = instance?: synchronized(lock){
+        operator fun invoke(context: Application) = instance?: synchronized(lock){
             instance?:buildDatabase(context).also{
                 instance = it
             }
         }
 
-        private fun buildDatabase(context: Context) = Room.databaseBuilder(
+        private fun buildDatabase(context: Application) = Room.databaseBuilder(
             context.applicationContext,
             database::class.java,
             "FoodInventories"

@@ -1,8 +1,6 @@
 package com.example.eatup
 
 import android.annotation.SuppressLint
-import android.app.Application
-import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
 import androidx.appcompat.app.AppCompatActivity
@@ -13,14 +11,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 //import com.example.eatup.adapter.ContributeFoodAdapter
-import com.example.eatup.adapter.FoodAdapter
+//import com.example.eatup.adapter.FoodAdapter
+import com.example.eatup.adapter.ProductAdapter
 import com.example.eatup.database.database
 import com.example.eatup.databinding.ActivityFoodInventoryBinding
 import com.example.eatup.model.*
@@ -29,17 +27,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeFormatterBuilder
-import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.time.Duration.Companion.days
 
 
 @SuppressLint("StaticFieldLeak")
@@ -47,23 +39,27 @@ private lateinit var binding : ActivityFoodInventoryBinding
 //private var contributeItemList = mutableListOf<UserFoodWithInventory>()
 val foodItems = ArrayList<String>()
 private var foodWithInventoryList  = mutableListOf<UserFoodWithInventory>()
-var foodAdapter: FoodAdapter? = null
+private var productItemList = mutableListOf<WebDataItem>()
+//var foodAdapter: FoodAdapter? = null
+var productAdapter : ProductAdapter?=null
 lateinit var imageMenu: ActionBarDrawerToggle
 lateinit var navigationView: NavigationView
 private lateinit var auth: FirebaseAuth
 private lateinit var databaseReference: DatabaseReference
 
 class FoodInventory : AppCompatActivity(){
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFoodInventoryBinding.inflate(layoutInflater)
         val view: View = binding.root
         setContentView(view)
         binding.foodItemRv.layoutManager = LinearLayoutManager(this)
-        foodAdapter = FoodAdapter(foodWithInventoryList)
+        //foodAdapter = FoodAdapter(foodWithInventoryList)
 
-        binding.foodItemRv.adapter = foodAdapter
+        productAdapter = ProductAdapter(productItemList)
+        binding.foodItemRv.adapter = productAdapter
+       // binding.foodItemRv.adapter = foodAdapter
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
 
@@ -108,8 +104,8 @@ class FoodInventory : AppCompatActivity(){
             return super.onOptionsItemSelected(item)
         }
 
-        //Creating ArrayList//
-        val userInventory: List<UserInventory> =
+        //Creating ArrayList and adding data into ROOM //
+        /*val userInventory: List<UserInventory> =
             arrayListOf(UserInventory(Firebase.auth.currentUser!!.uid, 1))
 
         val inventory: List<Inventory> = arrayListOf(
@@ -148,11 +144,20 @@ class FoodInventory : AppCompatActivity(){
         //fooditemList = db.detailDao().getFoodItemWithInventory() as MutableList<FoodWithInventory>
 
         // val sp = db.detailDao().getFoodItemWithInventory()
-        val st = db.detailDao().getUserFoodItem()
+        val st = db.detailDao().getUserFoodItem()*/
 
         //This should change to only auto add//
-        if (foodWithInventoryList.isEmpty()) {
+        /*if (foodWithInventoryList.isEmpty()) {
             foodWithInventoryList.addAll(st)
+        }*/
+
+
+        //INSERT DATA INTO INVENTORY PAGE//
+        val db = database(application)
+        val authid = Firebase.auth.currentUser!!.uid
+        if(productItemList.isEmpty()){
+            val sp = db.detailDao().getProductData()
+            productItemList.addAll(sp)
         }
 
         //foodWithInventoryList = db.detailDao().getFoodItemWithInventory() as MutableList<FoodWithInventory>
@@ -177,38 +182,60 @@ class FoodInventory : AppCompatActivity(){
                         when (direction) {
                             //if swipe left//
                             ItemTouchHelper.LEFT -> {
-                                val deleteData = foodWithInventoryList[position]
-                                foodWithInventoryList.removeAt(position)
+                                //val deleteData = foodWithInventoryList[position]
+                                //foodWithInventoryList.removeAt(position)
+
+                                //val deleteData = productItemList[position]
+                                //productItemList.removeAt(position)
+
+                                val deleteData = productItemList[position]
+                                productItemList.removeAt(position)
+
 
                                 //It should then delete from the ROOM dbs//
+                                //db.detailDao().deleteEachFood(deleteData)
 
-                                foodAdapter!!.notifyDataSetChanged()
+
+                                //foodAdapter!!.notifyDataSetChanged()
+                                productAdapter!!.notifyDataSetChanged()
                                 Snackbar.make(
                                     binding.foodItemRv,
-                                    deleteData.foodItem.foodName,
+                                    //deleteData.foodItem.foodName,
+                                    deleteData.product_name.toString(),
                                     Snackbar.LENGTH_LONG
                                 )
                                     .setAction("Undo") {
-                                        foodWithInventoryList.add(position, deleteData)
+                                       // foodWithInventoryList.add(position, deleteData)
+                                        //productItemList.add(position,deleteData)
+                                        productItemList.add(position,deleteData)
                                         //arrayList.add(position,deleteData);
-                                        foodAdapter!!.notifyDataSetChanged()
+                                        //foodAdapter!!.notifyDataSetChanged()
+                                        productAdapter!!.notifyDataSetChanged()
                                     }.show()
                             }
 
                             ItemTouchHelper.RIGHT -> {
-                                val contributeData = foodWithInventoryList[position]
-                                foodWithInventoryList.removeAt(position)
+                                //val contributeData = foodWithInventoryList[position]
+                                //foodWithInventoryList.removeAt(position)
+
+                                //val contributeData = productItemList[position]
+                                //productItemList.removeAt(position)
+
+                                val contributeData = productItemList[position]
+                                productItemList.removeAt(position)
 
                                 auth = Firebase.auth
                                 val uid = auth.currentUser?.uid
 
-                                foodItems.add(contributeData.foodItem.foodName)
+                                foodItems.add(contributeData.product_name.toString())
                                 Log.i("TAG", foodItems.toString())
                                 val contribution = ContributeFoodItems(Firebase.auth.currentUser!!.uid,
                                     foodItems)
 
+
+
                                 lifecycleScope.launch {
-                                    database(this@FoodInventory).detailDao()
+                                    database(application).detailDao()
                                         .insertContributeItems(contribution)
                                 }
 
@@ -219,40 +246,21 @@ class FoodInventory : AppCompatActivity(){
 
                                 }
 
-
-                                /*databaseReference =
-                                    FirebaseDatabase.getInstance("https://learned-skill-377010-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("NGO")
-
-                                if (uid != null) {
-                                        databaseReference.child(uid)
-                                            .child("FoodItems").setValue(c_user)
-                                            .addOnCompleteListener {
-                                                if (it.isSuccessful) {
-                                                    Toast.makeText(
-                                                        baseContext,
-                                                        "Success",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
-                                                } else {
-                                                    Toast.makeText(
-                                                        baseContext,
-                                                        "Failed",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
-                                                }
-                                            }
-                                }*/
-
-                                foodAdapter!!.notifyDataSetChanged()
+                                //foodAdapter!!.notifyDataSetChanged()
+                                productAdapter!!.notifyDataSetChanged()
                                 Snackbar.make(
                                     binding.foodItemRv,
-                                    contributeData.foodItem.foodName,
+                                    //contributeData.foodItem.foodName,
+                                    contributeData.product_id.toString(),
                                     Snackbar.LENGTH_LONG
                                 )
                                     .setAction("Undo") {
-                                        foodWithInventoryList.add(position, contributeData)
+                                       // foodWithInventoryList.add(position, contributeData)
+                                        //productItemList.add(position,contributeData)
+                                        productItemList.add(position,contributeData)
                                         //arrayList.add(position,deleteData);
-                                        foodAdapter!!.notifyDataSetChanged()
+                                        //foodAdapter!!.notifyDataSetChanged()
+                                        productAdapter!!.notifyDataSetChanged()
                                     }.show()
                             }
                         }

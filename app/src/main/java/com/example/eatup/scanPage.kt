@@ -1,19 +1,18 @@
 package com.example.eatup
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ClipData.Item
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -22,10 +21,18 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.example.eatup.database.database
 import com.example.eatup.databinding.ActivityScanPageBinding
-import com.example.eatup.model.FoodWithInventory
+import com.example.eatup.repo.Repository
+import com.example.eatup.viewmodel.MainViewModel
+import com.example.eatup.viewmodel.MainViewModelFactory
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -37,6 +44,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import kotlinx.coroutines.launch
 
 class scanPage : AppCompatActivity() {
 
@@ -48,6 +56,9 @@ class scanPage : AppCompatActivity() {
     private lateinit var imageView: ImageView
     private lateinit var scanBtn: MaterialButton
     private lateinit var textResult:TextView
+    private lateinit var viewModel : MainViewModel
+    private lateinit var testBtn : Button
+
 
     companion object{
         private const val CAMERA_REQUEST_CODE = 100
@@ -66,6 +77,7 @@ class scanPage : AppCompatActivity() {
     private var barcodeScannerOptions:BarcodeScannerOptions?=null
     private var barcodeScanner:BarcodeScanner?=null
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scan_page)
@@ -119,6 +131,7 @@ class scanPage : AppCompatActivity() {
         imageView = findViewById(R.id.imageView)
         scanBtn = findViewById(R.id.scanBtn)
         textResult = findViewById(R.id.textResult)
+        testBtn = findViewById(R.id.testBtn)
 
         //init the arrays of permissions required to pick image from CAMERA/GALLERY
         cameraPermissions = arrayOf(android.Manifest.permission.CAMERA,android.Manifest.permission.READ_EXTERNAL_STORAGE) //// WRITE OR READ
@@ -157,6 +170,23 @@ class scanPage : AppCompatActivity() {
             }
         }
 
+        testBtn.setOnClickListener {
+            val rawValueText: EditText = findViewById(R.id.rawValuetext)
+            val repository = Repository()
+            val viewModelFactory = MainViewModelFactory(repository)
+            viewModel = ViewModelProvider(this,viewModelFactory)[MainViewModel::class.java]
+            val db = database(application)
+            viewModel.getRawValue(rawValueText.text.toString())
+            viewModel.myResponse.observe(this, Observer {
+                    response->
+                if(response.isSuccessful) {
+                    textResult.text = response.body().toString()
+                    lifecycleScope.launch {
+                       db.detailDao().insertProductData(response.body())
+                    }
+                }
+            })
+        }
     }
 
    //detect and scan the image with barcode//
@@ -190,101 +220,47 @@ class scanPage : AppCompatActivity() {
             val valueType = barcode.valueType
 
             when(valueType){
-                Barcode.TYPE_WIFI ->{
-                    val typeWifi = barcode.wifi
-                    val ssid = "${typeWifi?.ssid}"
-                    val password = "${typeWifi?.password}"
-                    var encryptionType = "${typeWifi?.encryptionType}"
+                Barcode.FORMAT_EAN_13 -> {
+                    val rawValue = barcode.rawValue
 
-                    if(encryptionType == "1"){
-                        encryptionType = "OPEN"
-                    } else if(encryptionType == "2"){
-                        encryptionType = "WPA"
-                    } else if(encryptionType == "3"){
-                        encryptionType = "WEP"
-                    }
-                    Log.d(TAG,"extractBarcodeQRCodeInfo: TYPE_WIFI")
-                    Log.d(TAG,"extractBarcodeQRCodeInfo: ssid:$ssid")
-                    Log.d(TAG,"extractBarcodeQRCodeInfo: password:$password")
-                    Log.d(TAG,"extractBarcodeQRCodeInfo: encryptionType: $encryptionType")
+                    textResult.text = "\nrawValue : $rawValue"
 
-                    textResult.text = "TYPE_WIFI \nssid: $ssid \npassword: $password \nencryptionType: $encryptionType \n\nrawValue: $rawValue"
+
+                    val rawValueText: EditText = findViewById(R.id.rawValuetext)
+                    val repository = Repository()
+                    val viewModelFactory = MainViewModelFactory(repository)
+                    viewModel = ViewModelProvider(this,viewModelFactory)[MainViewModel::class.java]
+                    val db = database(application)
+                    viewModel.getRawValue(rawValueText.text.toString())
+                    viewModel.myResponse.observe(this, Observer {
+                            response->
+                        if(response.isSuccessful) {
+                            textResult.text = response.body().toString()
+                            lifecycleScope.launch {
+                                db.detailDao().insertProductData(response.body())
+                            }
+                        }
+                    })
+                    /*val repository = Repository()
+                    val viewModelFactory = MainViewModelFactory(repository)
+                    viewModel = ViewModelProvider(this,viewModelFactory).get(MainViewModel::class.java)
+
+                    viewModel.getRawValue(rawValue)
+                    viewModel.myResponse.observe(this, Observer {
+                        response->
+                        if(response.isSuccessful){
+                            Log.d("Response",response.body()?.product_id.toString())
+                        }
+                    })*/
                 }
-                Barcode.TYPE_URL -> {
-                    val typeUrl = barcode.url
-                    val title = "${typeUrl?.title}"
-                    val url = "${typeUrl?.url}"
-
-                    Log.d(TAG,"extractBarcodeQRCodeInfo: TYPE_URL")
-                    Log.d(TAG,"extractBarcodeQRCodeInfo: title: $title")
-                    Log.d(TAG,"extractBarcodeQRCodeInfo: title: $url")
-
-                    textResult.text = "TYPE_URL \ntitle: $title \nurl: $url \n\nrawValue: $rawValue"
-                }
-                Barcode.TYPE_EMAIL -> {
-                    val typeEmail = barcode.email
-                    val address = "${typeEmail?.address}"
-                    val body = "${typeEmail?.body}"
-                    val subject = "${typeEmail?.subject}"
-
-                    Log.d(TAG,"extractBarCodeQRCodeInfo: TYPE_EMAIL")
-                    Log.d(TAG,"extractBarCodeQRCodeInfo: address: $address")
-                    Log.d(TAG,"extractBarCodeQRCodeInfo: body: $body")
-                    Log.d(TAG,"extractBarCodeQRCodeInfo: subject: $subject")
-
-                    textResult.text = "TYPE_EMAIL \nemail:$address \nbody: $body \nsubject: $subject \n\nrawValue:$rawValue"
-                }
-                Barcode.TYPE_CONTACT_INFO -> {
-                    val typeContact = barcode.contactInfo
-                    val title = "${typeContact?.title}"
-                    val organization = "${typeContact?.organization}"
-                    val name = "${typeContact?.name?.first} ${typeContact?.name?.last}"
-                    val phone = "${typeContact?.name?.first} ${typeContact?.phones?.get(0)?.number}"
-
-                    Log.d(TAG,"extractBarcodeQRCodeInfo: TYPE_CONTRACT_INFO")
-                    Log.d(TAG,"extractBarCodeQRCodeInfo: title:$title")
-                    Log.d(TAG,"extractBarCodeQRCodeInfo: organization:$organization")
-                    Log.d(TAG,"extractBarCodeQRCodeInfo: name:$name")
-                    Log.d(TAG,"extractBarCodeQRCodeInfo: phone:$phone")
-
-                    textResult.text  = "TYPE_CONTACT_INFO \ntitle: $title \norganization: $organization \nname: $name \nphone: $phone \n\nrawValue: $rawValue"
-                }
-                Barcode.FORMAT_QR_CODE -> {
-                    val bookurl = barcode.url
-                    val bookurllink = "${bookurl?.url}"
-
-                    Log.d(TAG,"extractBarcodeQRCodeInfo: FORMAT_QR_CODE")
-                    Log.d(TAG,"extractBarCodeQRCodeInfo: bookurllink:$bookurllink")
-
-                    textResult.text = "FORMAT_QR_CDE \nbookurllink: $bookurllink \n\nrawValue: $rawValue"
-
-                }
-                Barcode.TYPE_ISBN -> {
-                    val bookurl = barcode.url
-
-                    Log.d(TAG,"extractBarcodeQRCodeInfo : TYPE_ISBN")
-                    Log.d(TAG,"extractBarcodeQRCodeInfo : URL:$bookurl")
-
-                    textResult.text = "TYPE_ISBN \nBookUrl : $bookurl \n\nrawValue : $rawValue"
-                }
-
-                Barcode.FORMAT_QR_CODE -> {
-                    val bookurl = barcode.url
-                    val bookurllink = "${bookurl?.url}"
-
-                    Log.d(TAG,"extractBarcodeQRCodeInfo: FORMAT_QR_CODE")
-                    Log.d(TAG,"extractBarCodeQRCodeInfo: bookurllink:$bookurllink")
-
-                    textResult.text = "FORMAT_QR_CDE \nbookurllink: $bookurllink \n\nrawValue: $rawValue"
-
-                }
-
                 else ->{
                     textResult.text = "rawValue: $rawValue"
                 }
             }
         }
     }
+
+
 
     private fun pickImageGallery(){
         val intent = Intent(Intent.ACTION_PICK)
@@ -349,7 +325,6 @@ class scanPage : AppCompatActivity() {
             }
 
         }).onSameThread().check()
-
     }
 
 
@@ -407,4 +382,5 @@ class scanPage : AppCompatActivity() {
     private fun showToast(message:String){
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
     }
-   }
+
+}

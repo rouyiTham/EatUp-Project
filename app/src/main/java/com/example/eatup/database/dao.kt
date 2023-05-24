@@ -27,6 +27,9 @@ interface dao {
     @Insert
     fun insertNGOdata(NGOdata : NGOdata)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertProductData(ap: List<WebDataItem>?)
+
     /*@Transaction
     @Query("SELECT * FROM NGOdata")
     fun getAllNGOdata(): NGOdata*/
@@ -37,6 +40,9 @@ interface dao {
 
     @Query("DELETE FROM ContributeFoodItems")
     fun deleteAllFoodItem()
+
+    @Delete
+    fun deleteEachFood(webDataItem:WebDataItem?)
 
     /*@Query()
     fun deleteEachFood(st :List<FoodItem>)*/
@@ -65,4 +71,10 @@ interface dao {
     @Transaction
     @Query("SELECT * FROM FoodItem")
     fun getUserFoodItem(): List<UserFoodWithInventory>
+
+    @Transaction
+    @Query("SELECT * FROM ProductItems")
+    fun getProductData(): List<WebDataItem>
+
+
 }

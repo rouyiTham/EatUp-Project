@@ -16,7 +16,6 @@ class ForgotPassword : AppCompatActivity() {
     private lateinit var resetPText : EditText
     private lateinit var resetBtn : Button
     private lateinit var backBtn : TextView
-
     private lateinit var auth : FirebaseAuth
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {

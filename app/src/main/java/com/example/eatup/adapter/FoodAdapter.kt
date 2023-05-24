@@ -1,4 +1,4 @@
-package com.example.eatup.adapter
+/*package com.example.eatup.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -56,4 +56,4 @@ class FoodAdapter(private val foodItemList: List<UserFoodWithInventory>) :
             binding.root
         )
 
-}
+}*/

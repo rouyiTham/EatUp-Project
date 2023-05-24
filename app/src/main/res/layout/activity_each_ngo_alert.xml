@@ -29,6 +29,7 @@
             android:layout_marginTop="10dp"
             android:lineSpacingExtra="7sp"
             android:text="Email"
+            android:textColor="@color/black"
             android:textAppearance="@style/name_pick_u"
             android:textSize="15sp" />
 
@@ -41,6 +42,7 @@
             android:layout_marginTop="40dp"
             android:lineSpacingExtra="7sp"
             android:text="Phone Number"
+            android:textColor="@color/black"
             android:textAppearance="@style/name_pick_u"
             android:textSize="15sp" />
 
@@ -52,17 +54,19 @@
             android:layout_marginTop="70dp"
             android:lineSpacingExtra="7sp"
             android:text="Pick Up Time"
+            android:textColor="@color/black"
             android:textAppearance="@style/name_pick_u"
             android:textSize="15sp" />
 
         <TextView
             android:id="@+id/pick_up_location"
-            android:layout_width="270dp"
+            android:layout_width="281dp"
             android:layout_height="67dp"
             android:layout_marginStart="60dp"
             android:layout_marginTop="120dp"
             android:lineSpacingExtra="7sp"
             android:text="Pick Up Location"
+            android:textColor="@color/black"
             android:textAppearance="@style/name_pick_u"
             android:textSize="15sp" />
 
@@ -74,6 +78,7 @@
             android:layout_marginTop="195dp"
             android:lineSpacingExtra="7sp"
             android:text="Items"
+            android:textColor="@color/black"
             android:textAppearance="@style/name_pick_u"
             android:textSize="15sp" />
 
@@ -92,7 +97,7 @@
             android:id="@+id/reject_Btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
+            android:layout_marginStart="210dp"
             android:layout_marginTop="245dp"
             android:backgroundTint="#FF0000"
             android:text="@string/reject"

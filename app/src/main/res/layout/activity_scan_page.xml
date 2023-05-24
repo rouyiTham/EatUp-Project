@@ -59,6 +59,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Titletext"></ImageView>
 
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/captureBtn"
             android:layout_width="wrap_content"
@@ -99,6 +100,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             app:layout_constraintVertical_bias="0.4"></com.google.android.material.button.MaterialButton>
+
+        <EditText
+            android:id="@+id/rawValuetext"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:background="@drawable/textborder"
+            android:hint="rawValue"
+            android:padding="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/scanBtn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="50dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test"
+            android:id="@+id/testBtn"
+            app:layout_constraintTop_toBottomOf="@+id/rawValuetext" />
 
         <TextView
             android:id="@+id/textResult"

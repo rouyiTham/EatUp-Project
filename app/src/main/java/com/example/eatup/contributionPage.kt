@@ -4,36 +4,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.Application
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 //import com.example.eatup.adapter.ContributeFoodAdapter
-import com.example.eatup.adapter.FoodAdapter
+//import com.example.eatup.adapter.FoodAdapter
 import com.example.eatup.database.database
 //import com.example.eatup.adapter.ContributeFoodAdapter
 import com.example.eatup.databinding.ActivityContributionPageBinding
 import com.example.eatup.model.ContributeFoodItems
-import com.example.eatup.model.UserFoodWithInventory
 import com.example.eatup.viewmodel.ViewModel
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.launch
 
 
 import java.util.Calendar
@@ -71,7 +60,7 @@ class contributionPage : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         //contributeFoodAdapter = ContributeFoodAdapter(contributeItemList)
         //binding.contributeItemRV.adapter = contributeFoodAdapter
 
-        val st = database(this).detailDao().getAllContribution()
+        val st = database(application).detailDao().getAllContribution()
         //contributeItemList.add(st)
 
         binding.foodText.text = st.foodItems.toString()
@@ -246,7 +235,7 @@ class contributionPage : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         textView.text="$savedDay-$savedMonth-$savedYear\nTime: $savedHour : $savedMinute"
         val datenTime = "$savedDay-$savedMonth-$savedYear\nTime: $savedHour : $savedMinute"
 
-        val st = database(this).detailDao().getAllContribution()
+        val st = database(application).detailDao().getAllContribution()
         ViewModel().insertfood(st.foodItems.toString())
         ViewModel().inserttime(datenTime)
     }

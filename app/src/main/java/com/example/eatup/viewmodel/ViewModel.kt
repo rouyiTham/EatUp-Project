@@ -1,8 +1,5 @@
 package com.example.eatup.viewmodel
 
-import android.location.Address
-import com.example.eatup.model.ContributeFoodItems
-import com.example.eatup.model.DataList
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -32,6 +29,7 @@ open class ViewModel {
         databaseInsertion.setValue(address)
     }
 
+    //using while loop to tranverse through the foodItemList and add into the list//
    /* fun insertFoodItems(c_foodItems: MutableList<ContributeFoodItems>){
         val Cc_foodItems = mutableListOf<String>()
         //val Ccc_foodItems = ArrayList<ContributeFoodItems>()
@@ -48,6 +46,8 @@ open class ViewModel {
     fun insertfood(foodItems: String){
         databaseInsertion.child("FoodToBeContributed").setValue(foodItems)
     }
+
+
    /* constructor(){}
     constructor(foodItems : ArrayList<String>?) {
         this.foodItems = foodItems
