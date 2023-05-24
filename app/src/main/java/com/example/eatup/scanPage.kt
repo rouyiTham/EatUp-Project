@@ -198,8 +198,8 @@ class scanPage : AppCompatActivity() {
        try{
            val inputImage = InputImage.fromFilePath(this,imageUri!!)
            val barcodeResult = barcodeScanner?.process(inputImage)
-               ?.addOnSuccessListener { barcode->
-                   extractBarcodeQRCodeInfo(barcode)
+               ?.addOnSuccessListener { barcodes->
+                   extractBarcodeQRCodeInfo(barcodes)
 
                }?.addOnFailureListener{e ->
                    Log.e(TAG,"detectResultFromImage",e)
