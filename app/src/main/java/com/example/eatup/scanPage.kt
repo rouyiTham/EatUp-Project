@@ -225,13 +225,11 @@ class scanPage : AppCompatActivity() {
 
                     textResult.text = "\nrawValue : $rawValue"
 
-
-                    val rawValueText: EditText = findViewById(R.id.rawValuetext)
                     val repository = Repository()
                     val viewModelFactory = MainViewModelFactory(repository)
                     viewModel = ViewModelProvider(this,viewModelFactory)[MainViewModel::class.java]
                     val db = database(application)
-                    viewModel.getRawValue(rawValueText.text.toString())
+                    viewModel.getRawValue(rawValue.toString())
                     viewModel.myResponse.observe(this, Observer {
                             response->
                         if(response.isSuccessful) {
