@@ -31,8 +31,6 @@ import com.example.eatup.viewmodel.MainViewModel
 import com.example.eatup.viewmodel.MainViewModelFactory
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -98,19 +96,19 @@ class scanPage : AppCompatActivity() {
                     startActivity(intent)
                 }
                 R.id.scan -> {
-                    val intent = Intent(this,ActivityScanPageBinding::class.java)
+                    val intent = Intent(this, ActivityScanPageBinding::class.java)
                     //startActivity(intent)
                 }
                 R.id.resources -> {
-                    val intent = Intent(this,Resources::class.java)
+                    val intent = Intent(this, Resources::class.java)
                     startActivity(intent)
                 }
                 R.id.inventory -> {
-                    val intent = Intent(this,FoodInventory::class.java)
+                    val intent = Intent(this, FoodInventory::class.java)
                     startActivity(intent)
                 }
                 R.id.account -> {
-                    val intent = Intent(this,accountPage::class.java)
+                    val intent = Intent(this, accountPage::class.java)
                     startActivity(intent)
                 }
 
@@ -120,7 +118,7 @@ class scanPage : AppCompatActivity() {
 
         //allow to select the menu items in menu.xml//
         fun onOptionsItemSelected(item: MenuItem): Boolean {
-            if(imageMenu.onOptionsItemSelected(item)) {
+            if (imageMenu.onOptionsItemSelected(item)) {
                 return true
             }
             return super.onOptionsItemSelected(item)
@@ -134,8 +132,14 @@ class scanPage : AppCompatActivity() {
         testBtn = findViewById(R.id.testBtn)
 
         //init the arrays of permissions required to pick image from CAMERA/GALLERY
-        cameraPermissions = arrayOf(android.Manifest.permission.CAMERA,android.Manifest.permission.READ_EXTERNAL_STORAGE) //// WRITE OR READ
-        storagePermissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        cameraPermissions = arrayOf(
+            android.Manifest.permission.CAMERA,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        ) //// WRITE OR READ
+        storagePermissions = arrayOf(
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
 
         barcodeScannerOptions = BarcodeScannerOptions.Builder()
             .setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS)
@@ -144,33 +148,32 @@ class scanPage : AppCompatActivity() {
         barcodeScanner = BarcodeScanning.getClient(barcodeScannerOptions!!)
 
         //when cameraBtn clicked , check permissions related to camera
-        captureBtn.setOnClickListener{
-            if(checkCameraPermission()){
+        captureBtn.setOnClickListener {
+            if (checkCameraPermission()) {
                 pickImageCamera()
-            } else{
+            } else {
                 requestCameraPermission()
             }
         }
 
         //when galleryBtn clicked , check permission related to gallery
-        galleryBtn.setOnClickListener{
-            if(checkStoragePermission() != null){
+        galleryBtn.setOnClickListener {
+            if (checkStoragePermission() != null) {
                 pickImageGallery()
             } else {
                 requestStoragePermission()
             }
         }
 
-        scanBtn.setOnClickListener{
-            if(imageUri == null){
+        scanBtn.setOnClickListener {
+            if (imageUri == null) {
                 showToast("Choose image first")
-            }
-            else {
+            } else {
                 detectResultFromImage()
             }
         }
-
-        testBtn.setOnClickListener {
+    }
+        /*testBtn.setOnClickListener {
             val rawValueText: EditText = findViewById(R.id.rawValuetext)
             val repository = Repository()
             val viewModelFactory = MainViewModelFactory(repository)
@@ -186,8 +189,8 @@ class scanPage : AppCompatActivity() {
                     }
                 }
             })
-        }
-    }
+        }*/
+
 
    //detect and scan the image with barcode//
     private fun detectResultFromImage() {
@@ -195,45 +198,44 @@ class scanPage : AppCompatActivity() {
        try{
            val inputImage = InputImage.fromFilePath(this,imageUri!!)
            val barcodeResult = barcodeScanner?.process(inputImage)
-               ?.addOnSuccessListener { barcodes->
-                   extractBarcodeQRCodeInfo(barcodes)
+               ?.addOnSuccessListener { barcode->
+                   extractBarcodeQRCodeInfo(barcode)
 
                }?.addOnFailureListener{e ->
                    Log.e(TAG,"detectResultFromImage",e)
                    showToast("Failed scanning due to ${e.message}")
                }
-       }catch(e:java.lang.Exception){
+       } catch(e:java.lang.Exception){
            Log.e(TAG,"detectResultFromImage",e)
            showToast("Failed due to ${e.message}")
        }
     }
 
     //extract the barcode from the image//
-    private fun extractBarcodeQRCodeInfo(barcodes:List<Barcode>){
-        for(barcode in barcodes){
+    private fun extractBarcodeQRCodeInfo(barcodes: List<Barcode>) {
+        for (barcode in barcodes) {
             val bound = barcode.boundingBox
             val corners = barcode.cornerPoints
-            //val rawValue = barcode
-            //Log.d(TAG,"extractBarcodeQRCodeInfo: rawValue: $rawValue")
+            //Log.d(TAG,"extractBarcodeQRCodeInfo: rawValue: $rawValue")*/
 
-                    val rawValue = Barcode.FORMAT_EAN_13
+            val rawValue = barcode.rawValue
+            textResult.text = "\nrawValue : $rawValue"
 
-                    textResult.text = "\nrawValue : $rawValue"
-
-                    val repository = Repository()
-                    val viewModelFactory = MainViewModelFactory(repository)
-                    viewModel = ViewModelProvider(this,viewModelFactory)[MainViewModel::class.java]
-                    val db = database(application)
-                    viewModel.getRawValue(rawValue.toString())
-                    viewModel.myResponse.observe(this, Observer {
-                            response->
-                        if(response.isSuccessful) {
-                            textResult.text = response.body().toString()
-                            lifecycleScope.launch {
-                                db.detailDao().insertProductData(response.body())
-                            }
-                        }
-                    })
+            val repository = Repository()
+            val viewModelFactory = MainViewModelFactory(repository)
+            viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+            val db = database(application)
+            viewModel.getRawValue(rawValue.toString())
+            viewModel.myResponse.observe(this, Observer { response ->
+                if (response.isSuccessful) {
+                    textResult.text = response.body().toString()
+                    lifecycleScope.launch {
+                        db.detailDao().insertProductData(response.body())
+                    }
+                }
+            })
+        }
+    }
 
                     /*val repository = Repository()
                     val viewModelFactory = MainViewModelFactory(repository)
@@ -246,11 +248,6 @@ class scanPage : AppCompatActivity() {
                             Log.d("Response",response.body()?.product_id.toString())
                         }
                     })*/
-                }
-
-    }
-
-
 
     private fun pickImageGallery(){
         val intent = Intent(Intent.ACTION_PICK)
