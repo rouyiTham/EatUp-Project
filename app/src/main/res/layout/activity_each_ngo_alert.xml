@@ -80,7 +80,7 @@
             android:text="Items"
             android:textColor="@color/black"
             android:textAppearance="@style/name_pick_u"
-            android:textSize="15sp" />
+            android:textSize="12sp"/>
 
         <Button
             android:id="@+id/accept_Btn"
