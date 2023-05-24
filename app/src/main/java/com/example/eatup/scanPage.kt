@@ -212,23 +212,23 @@ class scanPage : AppCompatActivity() {
     }
 
     //extract the barcode from the image//
-    private fun extractBarcodeQRCodeInfo(barcodes: List<Barcode>) {
+    private fun extractBarcodeQRCodeInfo(barcodes:List<Barcode>) {
         for (barcode in barcodes) {
             val bound = barcode.boundingBox
             val corners = barcode.cornerPoints
-            //Log.d(TAG,"extractBarcodeQRCodeInfo: rawValue: $rawValue")*/
-
             val rawValue = barcode.rawValue
-            textResult.text = "\nrawValue : $rawValue"
+            Log.d(TAG, "extractBarcodeQRCodeInfo: rawValue: $rawValue")
+
+            textResult.text = "rawValue: $rawValue"
 
             val repository = Repository()
             val viewModelFactory = MainViewModelFactory(repository)
             viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
             val db = database(application)
-            viewModel.getRawValue(rawValue.toString())
+            viewModel.getRawValue(barcode.rawValue.toString())
             viewModel.myResponse.observe(this, Observer { response ->
                 if (response.isSuccessful) {
-                    textResult.text = response.body().toString()
+                    //textResult.text = response.body().toString()
                     lifecycleScope.launch {
                         db.detailDao().insertProductData(response.body())
                     }
@@ -237,17 +237,6 @@ class scanPage : AppCompatActivity() {
         }
     }
 
-                    /*val repository = Repository()
-                    val viewModelFactory = MainViewModelFactory(repository)
-                    viewModel = ViewModelProvider(this,viewModelFactory).get(MainViewModel::class.java)
-
-                    viewModel.getRawValue(rawValue)
-                    viewModel.myResponse.observe(this, Observer {
-                        response->
-                        if(response.isSuccessful){
-                            Log.d("Response",response.body()?.product_id.toString())
-                        }
-                    })*/
 
     private fun pickImageGallery(){
         val intent = Intent(Intent.ACTION_PICK)
