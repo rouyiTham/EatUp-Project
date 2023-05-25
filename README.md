@@ -6,4 +6,4 @@ There are 3 branches on this repository for our EatUp project.
 
 2. master branch is where our main application lies. The code is run by Android Studio, which is our main platfrom in developing our app.
 
-3. ecommerce branch contains the backend logic to run the essential functions of the app. The logic is deployed as a web service in which the app interacts with by posting requests and returns response objects in JSON formats. 
+3. ecommerce branch contains the API endpoints in the form of urls and logic layer to process the query parameters, interacting with the database and returning objects in JSON format. The ecommerce branch is deployed on Google App Engine as a webservice with the bulk of the backend processing handled by server.js and inventory_logic_API.
