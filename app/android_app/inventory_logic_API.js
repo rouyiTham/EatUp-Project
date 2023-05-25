@@ -3,19 +3,20 @@ module.exports = {
   MongoDB_ecommerce: MongoDB_ecommerce,
   MongoDB_transaction: MongoDB_transaction,
   MongoDB_getData: MongoDB_getData,
+  reassign: reassign,
+  inventory_overall: inventory_overall,
 };
 
 //https://www.mongodb.com/blog/post/quick-start-nodejs-mongodb-how-to-get-connected-to-your-database
 //test case to ensure database is connected
 
-/*MongoDB_transaction(8292550568944);
-setTimeout(() => {
+//MongoDB_transaction(8292550568944);
+/*setTimeout(() => {
   MongoDB_getData();
 }, 2000);
 setTimeout(() => {
-  global.returnArray = JSON.stringify(global.sampleListTwo);
-  console.log(global.returnArray);
-}, 3500);*/
+  reassign();
+}, 3500);*.
 
 /*MongoDB_transaction(4981829262400);
 setTimeout(() => {
@@ -26,7 +27,7 @@ setTimeout(() => {
   console.log(global.returnArray);
 }, 7000);*/
 
-var transaction_items_queried;
+global.transaction_items_queried = "A";
 global.listItems = "x";
 global.sampleListTwo = [];
 global.returnArray = "x";
@@ -68,12 +69,12 @@ function MongoDB_ecommerce() {
 
     async function listItemsFunc(cName) {
       let itemsTest = await cName.find({});
-      itemsTest.forEach((db) =>
+      await itemsTest.forEach((db) =>
         console.log(db.product_name, db.product_id, db.price)
       );
     }
 
-    listItemsFunc(collectionName);
+    await listItemsFunc(collectionName);
   }
 
   //product object constructors
@@ -102,7 +103,7 @@ function MongoDB_ecommerce() {
     async function listItemsFunc(collectionName) {
       var sampleListTwo = [];
       let itemsTest = await collectionName.find({});
-      itemsTest.forEach((db) => {
+      await itemsTest.forEach((db) => {
         const itemPlace = new objectList(
           db.product_id,
           db.product_name,
@@ -116,16 +117,16 @@ function MongoDB_ecommerce() {
         global.listItems = sampleListTwo;
         console.log(global.listItems);
       }
-
-      setTimeout(() => {
+      await reassign();
+      /*setTimeout(() => {
         reassign();
-      }, 500);
+      }, 500);*/
     }
 
-    listItemsFunc(collectionName);
+    await listItemsFunc(collectionName);
   }
 
-  function overallFunction() {
+  async function overallFunction() {
     function promiseOne() {
       return new Promise((resolve, reject) => {
         const connectionTest = test();
@@ -142,7 +143,7 @@ function MongoDB_ecommerce() {
     }
 
     function promiseTwo() {
-      new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         const queryTest = mainTwo();
 
         queryTest
@@ -157,7 +158,7 @@ function MongoDB_ecommerce() {
     }
 
     function promiseThree() {
-      new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         const dataTest = mainThree();
 
         dataTest
@@ -177,11 +178,11 @@ function MongoDB_ecommerce() {
 
     setTimeout(() => {
       promiseTwo();
-    }, 1000);
+    }, 2000);
 
     setTimeout(() => {
       promiseThree();
-    }, 3000);
+    }, 4000);
   }
 
   overallFunction();
@@ -194,134 +195,185 @@ function MongoDB_ecommerce() {
 }
 
 function MongoDB_transaction(barcode) {
-  const barcode_id = barcode;
-  async function mainOne() {
+  return new Promise((resolve, reject) => {
+    const barcode_id = barcode;
+    async function mainOne() {
+      const uri =
+        "mongodb+srv://eatup:eatup@ecommerce-cluster-1.wkax8qo.mongodb.net/?retryWrites=true&w=majority";
+      const client = new MongoClient(uri);
+
+      const databaseName = client.db("ecommerce_inventory_1");
+      const collectionName = databaseName.collection("transaction_mocks");
+
+      async function listItemsFunc(cName) {
+        let itemsTest = await cName.find({ transaction_id: barcode_id });
+        await itemsTest.forEach((db) => {
+          const items = new transactionItems(
+            db.transaction_id,
+            db.item_1,
+            db.item_2,
+            db.item_3,
+            db.item_4,
+            db.item_5
+          );
+          global.transaction_items_queried = items;
+        });
+      }
+
+      await listItemsFunc(collectionName);
+      console.log(global.transaction_items_queried);
+      resolve();
+    }
+
+    //product object constructors
+    class transactionItems {
+      constructor(transaction_id, item_1, item_2, item_3, item_4, item_5) {
+        (this.transaction_id = transaction_id),
+          (this.item_1 = item_1),
+          (this.item_2 = item_2),
+          (this.item_3 = item_3),
+          (this.item_4 = item_4),
+          (this.item_5 = item_5);
+      }
+    }
+
+    mainOne();
+  });
+}
+
+async function MongoDB_getData() {
+  const getDataPromise = new Promise((resolve, reject) => {
     const uri =
       "mongodb+srv://eatup:eatup@ecommerce-cluster-1.wkax8qo.mongodb.net/?retryWrites=true&w=majority";
     const client = new MongoClient(uri);
 
     const databaseName = client.db("ecommerce_inventory_1");
-    const collectionName = databaseName.collection("transaction_mocks");
+    const collectionName = databaseName.collection("ecommerce_backend_2");
 
-    async function listItemsFunc(cName) {
-      let itemsTest = await cName.find({ transaction_id: barcode_id });
-      itemsTest.forEach((db) => {
-        const items = new transactionItems(
-          db.transaction_id,
-          db.item_1,
-          db.item_2,
-          db.item_3,
-          db.item_4,
-          db.item_5
-        );
-        transaction_items_queried = items;
-      });
-    }
-
-    listItemsFunc(collectionName);
-  }
-
-  mainOne();
-
-  //product object constructors
-  class transactionItems {
-    constructor(transaction_id, item_1, item_2, item_3, item_4, item_5) {
-      (this.transaction_id = transaction_id),
-        (this.item_1 = item_1),
-        (this.item_2 = item_2),
-        (this.item_3 = item_3),
-        (this.item_4 = item_4),
-        (this.item_5 = item_5);
-    }
-  }
-
-  setTimeout(() => {
-    console.log(transaction_items_queried);
-  }, 500);
-}
-
-function MongoDB_getData() {
-  const uri =
-    "mongodb+srv://eatup:eatup@ecommerce-cluster-1.wkax8qo.mongodb.net/?retryWrites=true&w=majority";
-  const client = new MongoClient(uri);
-
-  const databaseName = client.db("ecommerce_inventory_1");
-  const collectionName = databaseName.collection("ecommerce_backend_2");
-
-  class fullTransactionDetails {
-    constructor(
-      mocksQueried,
-      product_id,
-      product_name,
-      food_identifier,
-      expiration_date
-    ) {
-      this.product_id = product_id;
-      this.product_name = product_name;
-      this.identifier = food_identifier;
-      this.quantity = mocksQueried;
-      this.expiration_date = expiration_date;
-    }
-  }
-
-  function applyFunctionToPropertiesExcludingKeys(obj, excludeKeys) {
-    for (let key in obj) {
-      if (!excludeKeys.includes(key)) {
-        //constructor function here
-        async function listItemsFunc(collectionName) {
-          //var sampleListTwo = [];
-          let itemsTest = await collectionName.find({
-            product_id: transaction_items_queried[key].product_id,
-            batch_no: transaction_items_queried[key].batch_no,
-          });
-          itemsTest.forEach((db) => {
-            const itemPlace = new fullTransactionDetails(
-              transaction_items_queried[key].quantity,
-              db.product_id,
-              db.product_name,
-              db.food_identifier,
-              db.expiration_date
-            );
-            global.sampleListTwo.push(itemPlace);
-          });
-
-          setTimeout(() => {
-            console.log(global.sampleListTwo);
-          }, 500);
-        }
-
-        listItemsFunc(collectionName);
+    class fullTransactionDetails {
+      constructor(
+        mocksQueried,
+        product_id,
+        product_name,
+        food_identifier,
+        expiration_date
+      ) {
+        this.product_id = product_id;
+        this.product_name = product_name;
+        this.identifier = food_identifier;
+        this.quantity = mocksQueried;
+        this.expiration_date = expiration_date;
       }
     }
-  }
 
-  /*async function listItemsFunc(collectionName) {
-    var sampleListTwo = [];
-    let itemsTest = await collectionName.find({
-      product_id: ` transaction_items_queried.${key}.product_id`,
-      batch_no: `transaction_items_queried.${key}.batch_no`,
-    });
-    itemsTest.forEach((db) => {
-      const itemPlace = new fullTransactionDetails(
-        transaction_items_queried,
-        db.product_id,
-        db.product_name,
-        db.food_identifier
-      );
-      sampleListTwo.push(itemPlace);
-    });
-    function reassign() {
-      global.listItems = sampleListTwo;
-      console.log(global.listItems);
+    async function applyFunctionToPropertiesExcludingKeys(obj, excludeKeys) {
+      for (let key in obj) {
+        if (!excludeKeys.includes(key)) {
+          //constructor function here
+          async function listItemsFunc(cName) {
+            //var sampleListTwo = [];
+            let itemsTest = await cName.find({
+              product_id: transaction_items_queried[key].product_id,
+              batch_no: transaction_items_queried[key].batch_no,
+              //product_id: parameterList[key].product_id,
+              //batch_no: parameterList[key].batch_no,
+            });
+
+            await itemsTest.forEach((db) => {
+              const itemPlace = new fullTransactionDetails(
+                transaction_items_queried[key].quantity,
+                db.product_id,
+                db.product_name,
+                db.food_identifier,
+                db.expiration_date
+              );
+              global.sampleListTwo.push(itemPlace);
+            });
+
+            /*setTimeout(() => {
+              console.log(global.sampleListTwo);
+            }, 500);*/
+          }
+
+          await listItemsFunc(collectionName);
+          console.log(global.sampleListTwo);
+        }
+      }
+      resolve(global.sampleListTwo);
+      return global.sampleListTwo;
     }
 
-    setTimeout(() => {
-      reassign();
-    }, 500);
-  } */
+    applyFunctionToPropertiesExcludingKeys(
+      global.transaction_items_queried,
+      "transaction_id"
+    );
+  });
 
-  applyFunctionToPropertiesExcludingKeys(
-    transaction_items_queried,
-    "transaction_id"
-  );
+  getDataPromise.then(() => {
+    console.log("ABCD");
+    console.log(global.sampleListTwo);
+    return global.sampleListTwo;
+  });
 }
+
+function reassign() {
+  return new Promise((resolve, reject) => {
+    /*global.returnArray = JSON.stringify(global.sampleListTwo);
+    console.log("ressigned");
+    console.log(global.returnArray);
+    resolve();
+    return global.returnArray;*/
+
+    if ((global.sampleListTwo = [])) {
+      setTimeout(() => {
+        global.returnArray = JSON.stringify(global.sampleListTwo);
+        console.log("ressigned");
+        console.log(global.returnArray);
+        resolve();
+        return global.returnArray;
+      }, 1500);
+    } else {
+      global.returnArray = JSON.stringify(global.sampleListTwo);
+      console.log("ressigned");
+      console.log(global.returnArray);
+      resolve();
+      return global.returnArray;
+    }
+  });
+}
+
+/*async function inventory_overall(query_string) {
+  const query_string_parsed = parseInt(query_string);
+  console.log(query_string_parsed);
+  console.log(typeof query_string_parsed);
+  await MongoDB_transaction(query_string_parsed);
+  console.log("transaction completed");
+  await MongoDB_getData();
+  console.log("getData completed");
+  await reassign();
+  console.log("reassigned overall");
+}*/
+
+async function inventory_overall(query_string) {
+  const query_string_parsed = parseInt(query_string);
+  console.log(query_string_parsed);
+  console.log(typeof query_string_parsed);
+  MongoDB_transaction(query_string_parsed)
+    .then(() => {
+      console.log("transaction completed");
+      MongoDB_getData();
+    })
+    .then(() => {
+      console.log("getData completed");
+      reassign();
+    })
+    .then(() => {
+      console.log("reassigned overall");
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
+
+//inventory_overall(4981829262400);
+//MongoDB_ecommerce();

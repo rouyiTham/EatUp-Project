@@ -29,7 +29,7 @@ setTimeout(() => {
 }, 3500); */
 
 function dataProcessing(data) {
-  inventory_logic.MongoDB_transaction(data);
+  /*inventory_logic.MongoDB_transaction(data);
   setTimeout(() => {
     inventory_logic.MongoDB_getData();
   }, 1000);
@@ -41,12 +41,13 @@ function dataProcessing(data) {
 
   setTimeout(() => {
     return { message: global.returnArray };
-  }, 2250);
+  }, 2250);*/
+  inventory_logic.inventory_overall(data);
 }
 
 app.all("/dataQuery/:transaction_id", function (req, res) {
   let id = parseInt(req.params.transaction_id);
-  setTimeout(() => {
+  /*setTimeout(() => {
     dataProcessing(id);
   }, 500);
   setTimeout(() => {
@@ -60,7 +61,63 @@ app.all("/dataQuery/:transaction_id", function (req, res) {
     global.sampleListTwo = [];
     global.returnArray = "returnArray";
     transaction_items_queried = "Queried";
-  }, 5000);
+  }, 5000);*/
+  const query_promise = new Promise((resolve, reject) => {
+    dataProcessing(id);
+    resolve();
+  });
+
+  const res_send = new Promise((resolve, reject) => {
+    /* console.log(req.params.transaction_id);
+    res.set({
+      "Content-Type": "application/json",
+    });
+    res.send(global.returnArray);
+    console.log("response sent");
+    resolve(); */
+    if ((global.returnArray = "returnArray")) {
+      setTimeout(() => {
+        console.log(req.params.transaction_id);
+        res.set({
+          "Content-Type": "application/json",
+        });
+        res.send(global.returnArray);
+        console.log("response sent");
+        resolve();
+      }, 2000);
+    } else {
+      console.log(req.params.transaction_id);
+      res.set({
+        "Content-Type": "application/json",
+      });
+      res.send(global.returnArray);
+      console.log("response sent");
+      resolve();
+    }
+  });
+
+  const var_clear = new Promise((resolve, reject) => {
+    global.sampleListTwo = [];
+    global.returnArray = "returnArray";
+    transaction_items_queried = "Queried";
+    console.log(global.sampleListTwo);
+    console.log(global.returnArray);
+    console.log(transaction_items_queried);
+    console.log("variables cleared");
+    resolve();
+  });
+
+  query_promise
+    .then(() => {
+      console.log("query_promise completed");
+      res_send;
+    })
+    .then(() => {
+      var_clear;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 });
 
 /*app.all("/dataQuery/:transaction_id([0-9]+)", function (req, res) {
