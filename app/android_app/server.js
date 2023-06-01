@@ -3,10 +3,169 @@ const app = express();
 const http = require("http");
 const inventory_logic = require("./inventory_logic_API");
 const fs = require("fs");
+const search_engine = require("./search_engine");
 
 global.sampleListTwo = [];
 global.returnArray = "returnArray";
 transaction_items_queried = "Queried";
+query_List = [
+  "spinach",
+  "mustard green",
+  "sweet potato",
+  "cucumber",
+  "corn",
+  "striploin",
+  "tenderloin",
+  "ribeye",
+  "steak",
+  "minced beef",
+  "mutton",
+  "lamb leg",
+  "loin",
+  "lamb shank",
+  "chicken",
+  "chicken wing",
+  "chicken ribs",
+  "watermelon",
+  "orange",
+  "pineapple",
+  "mango",
+  "blueberry",
+  "pomfret",
+  "sardine",
+  "anchovy",
+  "golden snapper",
+  "stingray",
+  "egg",
+  "salted egg",
+];
+query_list_json = [
+  {
+    category: "vegetable",
+    food_identifier: "spinach",
+  },
+  {
+    category: "vegetable",
+    food_identifier: "mustard greens",
+  },
+  {
+    category: "vegetable",
+    food_identifier: "sweet potato",
+  },
+  {
+    category: "vegetable",
+    food_identifier: "cucumber",
+  },
+  {
+    category: "vegetable",
+    food_identifier: "corn",
+  },
+  {
+    category: "vegetable",
+    food_identifier: "spinach",
+  },
+  {
+    category: "meat",
+    food_identifier: "striploin",
+  },
+  {
+    category: "meat",
+    food_identifier: "tenderloin",
+  },
+  {
+    category: "meat",
+    food_identifier: "ribeye",
+  },
+  {
+    category: "meat",
+    food_identifier: "steak",
+  },
+  {
+    category: "meat",
+    food_identifier: "minced beef",
+  },
+
+  {
+    category: "meat",
+    food_identifier: "mutton",
+  },
+  {
+    category: "meat",
+    food_identifier: "lamb leg",
+  },
+  {
+    category: "meat",
+    food_identifier: "loin",
+  },
+  {
+    category: "meat",
+    food_identifier: "lamb shank",
+  },
+  {
+    category: "poultry",
+    food_identifier: "chicken",
+  },
+  {
+    category: "poultry",
+    food_identifier: "chicken wing",
+  },
+  {
+    category: "poultry",
+    food_identifier: "chicken fillet",
+  },
+  {
+    category: "poultry",
+    food_identifier: "chicken ribs",
+  },
+  {
+    category: "fruits",
+    food_identifier: "watermelon",
+  },
+  {
+    category: "fruits",
+    food_identifier: "orange",
+  },
+  {
+    category: "fruits",
+    food_identifier: "pineapple",
+  },
+  {
+    category: "fruits",
+    food_identifier: "mango",
+  },
+  {
+    category: "fruits",
+    food_identifier: "blueberry",
+  },
+  {
+    category: "seafood",
+    food_identifier: "pomfret",
+  },
+  {
+    category: "seafood",
+    food_identifier: "sardine",
+  },
+  {
+    category: "seafood",
+    food_identifier: "anchovy",
+  },
+  {
+    category: "seafood",
+    food_identifier: "golden snapper",
+  },
+  {
+    category: "seafood",
+    food_identifier: "stingray",
+  },
+  {
+    category: "eggs",
+    food_identifier: "eggs",
+  },
+  {
+    category: "eggs",
+    food_identifier: "salted eggs",
+  },
+];
 
 /*app.get("/", (req, res) => {
   res.send("Hello from App Engine!");
@@ -131,11 +290,15 @@ app.all("/dataQuery/:transaction_id", function (req, res) {
   }, 5000);
 });*/
 
-//app.listen(3000);
+app.listen(3000);
 
 //Starts the server
-const PORT = parseInt(process.env.PORT) || 8080;
+/*const PORT = parseInt(process.env.PORT) || 8080;
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
   console.log("Press Ctrl+C to quit.");
+});*/
+
+app.all("/searchEngine/:", function (req, res) {
+  search_engine;
 });
