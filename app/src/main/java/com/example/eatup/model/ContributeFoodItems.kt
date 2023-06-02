@@ -9,6 +9,7 @@ import com.google.gson.Gson
 @Entity
 data class ContributeFoodItems(
     @PrimaryKey(autoGenerate = false) val userId : String = Firebase.auth.currentUser!!.uid,
+   // @ColumnInfo(name = "foodName") val foodName : String,
     @ColumnInfo(name = "foodItems") val foodItems : ArrayList<String>,
 
 )
