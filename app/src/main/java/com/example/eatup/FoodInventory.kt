@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +33,7 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 @SuppressLint("StaticFieldLeak")
@@ -40,7 +42,6 @@ private lateinit var binding : ActivityFoodInventoryBinding
 val foodItems = ArrayList<String>()
 private var foodWithInventoryList  = mutableListOf<UserFoodWithInventory>()
 private var productItemList = mutableListOf<WebDataItem>()
-//var foodAdapter: FoodAdapter? = null
 var productAdapter : ProductAdapter?=null
 lateinit var imageMenu: ActionBarDrawerToggle
 lateinit var navigationView: NavigationView
@@ -55,9 +56,23 @@ class FoodInventory : AppCompatActivity(){
         val view: View = binding.root
         setContentView(view)
         binding.foodItemRv.layoutManager = LinearLayoutManager(this)
-        //foodAdapter = FoodAdapter(foodWithInventoryList)
 
-        productAdapter = ProductAdapter(productItemList)
+        val db = database(application)
+
+        //INSERT DATA INTO INVENTORY PAGE/
+        val authid = Firebase.auth.currentUser!!.uid
+        if(productItemList.isEmpty()){
+            val sp = db.detailDao().getProductData()
+            productItemList.addAll(sp)
+            val userfood = UserFood(authid, productItemList)
+            db.detailDao().insertUserFood(userfood)
+        }
+
+        //val userFood = db.detailDao().getWebfoodItems()
+        val userFood = db.detailDao().getAllUserFood()
+        if(userFood.userId == authid){
+            productAdapter = ProductAdapter(userFood)
+        }
         binding.foodItemRv.adapter = productAdapter
        // binding.foodItemRv.adapter = foodAdapter
 
@@ -151,17 +166,6 @@ class FoodInventory : AppCompatActivity(){
             foodWithInventoryList.addAll(st)
         }*/
 
-
-        //INSERT DATA INTO INVENTORY PAGE//
-        val db = database(application)
-        val authid = Firebase.auth.currentUser!!.uid
-        if(productItemList.isEmpty()){
-            val sp = db.detailDao().getProductData()
-            productItemList.addAll(sp)
-        }
-
-        //foodWithInventoryList = db.detailDao().getFoodItemWithInventory() as MutableList<FoodWithInventory>
-
         //SWIPE GESTURE//
         val simpleCallback: ItemTouchHelper.SimpleCallback =
             object :
@@ -182,18 +186,15 @@ class FoodInventory : AppCompatActivity(){
                         when (direction) {
                             //if swipe left//
                             ItemTouchHelper.LEFT -> {
-                                //val deleteData = foodWithInventoryList[position]
-                                //foodWithInventoryList.removeAt(position)
 
+                                val deleteData = userFood.WebfoodItems[position]
+                                userFood.WebfoodItems.removeAt(position)
                                 //val deleteData = productItemList[position]
                                 //productItemList.removeAt(position)
 
-                                val deleteData = productItemList[position]
-                                productItemList.removeAt(position)
-
 
                                 //It should then delete from the ROOM dbs//
-                                //db.detailDao().deleteEachFood(deleteData)
+                                db.detailDao().deleteEachFood(deleteData)
 
 
                                 //foodAdapter!!.notifyDataSetChanged()
@@ -205,24 +206,17 @@ class FoodInventory : AppCompatActivity(){
                                     Snackbar.LENGTH_LONG
                                 )
                                     .setAction("Undo") {
-                                       // foodWithInventoryList.add(position, deleteData)
                                         //productItemList.add(position,deleteData)
-                                        productItemList.add(position,deleteData)
-                                        //arrayList.add(position,deleteData);
-                                        //foodAdapter!!.notifyDataSetChanged()
+                                        userFood.WebfoodItems.add(position,deleteData)
                                         productAdapter!!.notifyDataSetChanged()
                                     }.show()
                             }
 
                             ItemTouchHelper.RIGHT -> {
-                                //val contributeData = foodWithInventoryList[position]
-                                //foodWithInventoryList.removeAt(position)
-
                                 //val contributeData = productItemList[position]
                                 //productItemList.removeAt(position)
-
-                                val contributeData = productItemList[position]
-                                productItemList.removeAt(position)
+                                val contributeData = userFood.WebfoodItems[position]
+                                userFood.WebfoodItems.removeAt(position)
 
                                 auth = Firebase.auth
                                 val uid = auth.currentUser?.uid
@@ -231,8 +225,6 @@ class FoodInventory : AppCompatActivity(){
                                 Log.i("TAG", foodItems.toString())
                                 val contribution = ContributeFoodItems(Firebase.auth.currentUser!!.uid,
                                     foodItems)
-
-
 
                                 lifecycleScope.launch {
                                     database(application).detailDao()
@@ -255,11 +247,8 @@ class FoodInventory : AppCompatActivity(){
                                     Snackbar.LENGTH_LONG
                                 )
                                     .setAction("Undo") {
-                                       // foodWithInventoryList.add(position, contributeData)
                                         //productItemList.add(position,contributeData)
-                                        productItemList.add(position,contributeData)
-                                        //arrayList.add(position,deleteData);
-                                        //foodAdapter!!.notifyDataSetChanged()
+                                        userFood.WebfoodItems.add(position,contributeData)
                                         productAdapter!!.notifyDataSetChanged()
                                     }.show()
                             }
@@ -327,20 +316,3 @@ class FoodInventory : AppCompatActivity(){
         ItemTouchHelper(simpleCallback).attachToRecyclerView(binding.foodItemRv)
     }
 }
-    /*fun getItems(): MutableList<UserFoodWithInventory> {
-        return contributeItemList
-    }*/
- /*   companion object {
-        @SuppressLint("StaticFieldLeak")
-        var getMyContext:Context?= null
-            private set
-    }
-
-    override fun addItems(List: List<UserFoodWithInventory>) {
-        contributeItemList.addAll(contributeItemList)
-    }
-
-    override val items: List<UserFoodWithInventory>
-        get() = contributeItemList
-}*/
-

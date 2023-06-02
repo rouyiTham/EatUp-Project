@@ -56,10 +56,6 @@ class contributionPage : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         val view: View = binding.root
         setContentView(view)
 
-        //binding.contributeItemRV.layoutManager = LinearLayoutManager(this)
-        //contributeFoodAdapter = ContributeFoodAdapter(contributeItemList)
-        //binding.contributeItemRV.adapter = contributeFoodAdapter
-
         val st = database(application).detailDao().getAllContribution()
         //contributeItemList.add(st)
 

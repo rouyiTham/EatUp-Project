@@ -7,7 +7,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.annotations.SerializedName
 import org.checkerframework.checker.nullness.qual.NonNull
 
-@Entity("ProductItems")
+@Entity("WebFoodItem")
 data class WebDataItem(
     val expiration_date: String?,
     val identifier: String?,

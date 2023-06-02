@@ -26,11 +26,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.eatup.database.database
 import com.example.eatup.databinding.ActivityScanPageBinding
+import com.example.eatup.model.WebDataItem
 import com.example.eatup.repo.Repository
 import com.example.eatup.viewmodel.MainViewModel
 import com.example.eatup.viewmodel.MainViewModelFactory
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -56,7 +59,6 @@ class scanPage : AppCompatActivity() {
     private lateinit var textResult:TextView
     private lateinit var viewModel : MainViewModel
     private lateinit var testBtn : Button
-
 
     companion object{
         private const val CAMERA_REQUEST_CODE = 100
@@ -111,7 +113,6 @@ class scanPage : AppCompatActivity() {
                     val intent = Intent(this, accountPage::class.java)
                     startActivity(intent)
                 }
-
             }
             true
         }
@@ -172,24 +173,24 @@ class scanPage : AppCompatActivity() {
                 detectResultFromImage()
             }
         }
-    }
-        /*testBtn.setOnClickListener {
+
+            /* testBtn.setOnClickListener{
             val rawValueText: EditText = findViewById(R.id.rawValuetext)
             val repository = Repository()
             val viewModelFactory = MainViewModelFactory(repository)
-            viewModel = ViewModelProvider(this,viewModelFactory)[MainViewModel::class.java]
+            viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
             val db = database(application)
             viewModel.getRawValue(rawValueText.text.toString())
-            viewModel.myResponse.observe(this, Observer {
-                    response->
-                if(response.isSuccessful) {
+            viewModel.myResponse.observe(this, Observer { response ->
+                if (response.isSuccessful) {
                     textResult.text = response.body().toString()
                     lifecycleScope.launch {
-                       db.detailDao().insertProductData(response.body())
+                        db.detailDao().insertProductData(response.body())
                     }
                 }
             })
         }*/
+    }
 
 
    //detect and scan the image with barcode//
@@ -212,32 +213,33 @@ class scanPage : AppCompatActivity() {
     }
 
     //extract the barcode from the image//
-    private fun extractBarcodeQRCodeInfo(barcodes:List<Barcode>) {
-        for (barcode in barcodes) {
-            val bound = barcode.boundingBox
-            val corners = barcode.cornerPoints
-            val rawValue = barcode.rawValue
-            Log.d(TAG, "extractBarcodeQRCodeInfo: rawValue: $rawValue")
+    private fun extractBarcodeQRCodeInfo(barcodes: List<Barcode>) {
+            for (barcode in barcodes) {
+                val bound = barcode.boundingBox
+                val corners = barcode.cornerPoints
+                //Log.d(TAG,"extractBarcodeQRCodeInfo: rawValue: $rawValue")*/
 
-            textResult.text = "rawValue: $rawValue"
+                val rawValue = barcode.rawValue
+                textResult.text = "\nrawValue : $rawValue"
+                Log.d(TAG, "extractBarcodeQRCodeInfo: rawValue: $rawValue")
+                textResult.text = "rawValue: $rawValue"
 
-            val repository = Repository()
-            val viewModelFactory = MainViewModelFactory(repository)
-            viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
-            val db = database(application)
-            viewModel.getRawValue(barcode.rawValue.toString())
-            viewModel.myResponse.observe(this, Observer { response ->
-                if (response.isSuccessful) {
-                    //textResult.text = response.body().toString()
-                    lifecycleScope.launch {
-                        db.detailDao().insertProductData(response.body())
+                val repository = Repository()
+                val viewModelFactory = MainViewModelFactory(repository)
+                viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+                val db = database(application)
+                viewModel.getRawValue(rawValue.toString())
+                viewModel.getRawValue(barcode.rawValue.toString())
+                viewModel.myResponse.observe(this, Observer { response ->
+                    if (response.isSuccessful) {
+                        textResult.text = response.body().toString()
+                        lifecycleScope.launch {
+                            db.detailDao().insertProductData(response.body())
+                        }
                     }
-                }
-            })
-        }
+                })
+            }
     }
-
-
     private fun pickImageGallery(){
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
@@ -297,7 +299,6 @@ class scanPage : AppCompatActivity() {
                 p0: PermissionRequest?,
                 p1: PermissionToken?
             ) {
-
             }
 
         }).onSameThread().check()

@@ -59,19 +59,13 @@ class NgoAlertActivity : AppCompatActivity() {
                         ngoArrayList.add(ngolist!!)
 
                     }
-
                     ngo_rv.adapter = NGOAdapter(ngoArrayList)
-
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
-
-
         })
-
     }
 }

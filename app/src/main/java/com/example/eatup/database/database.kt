@@ -6,11 +6,11 @@ import com.example.eatup.model.*
 import com.example.eatup.scanPage
 
 @Database(
-    entities = [UserInventory::class,Inventory::class,FoodItem::class,FoodInventoryRef::class,UserFoodInventoryRef::class,ContributeFoodItems::class,NGOdata::class,WebDataItem::class],
-    version = 20,
+    entities = [UserInventory::class,Inventory::class,FoodItem::class,FoodInventoryRef::class,UserFoodInventoryRef::class,ContributeFoodItems::class,NGOdata::class,WebDataItem::class,UserFood::class],
+    version = 21,
     exportSchema = false
 )
-@TypeConverters(InventoryTypeConverter::class,CfoodTypeConverter::class)
+@TypeConverters(InventoryTypeConverter::class,UserFoodConverter::class,CfoodTypeConverter::class)
 
 abstract class database:RoomDatabase(){
     abstract fun detailDao() : dao

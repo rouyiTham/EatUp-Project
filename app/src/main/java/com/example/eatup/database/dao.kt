@@ -5,7 +5,6 @@ import com.example.eatup.model.*
 
 @Dao
 interface dao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFoodItem(st:List<FoodItem>)
 
@@ -30,27 +29,22 @@ interface dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertProductData(ap: List<WebDataItem>?)
 
-    /*@Transaction
-    @Query("SELECT * FROM NGOdata")
-    fun getAllNGOdata(): NGOdata*/
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertUserFood(userFood: UserFood)
 
     @Transaction
     @Query("SELECT * FROM ContributeFoodItems")
     fun getAllContribution(): ContributeFoodItems
+
+    @Transaction
+    @Query("SELECT * FROM ProductData")
+    fun getAllUserFood() : UserFood
 
     @Query("DELETE FROM ContributeFoodItems")
     fun deleteAllFoodItem()
 
     @Delete
     fun deleteEachFood(webDataItem:WebDataItem?)
-
-    /*@Query()
-    fun deleteEachFood(st :List<FoodItem>)*/
-
-
-    /*this func wont work becuz userfoodwithinvetory is either an entity or a collection of array
-    @Delete
-    fun deleteFoodItem(userFoodWithInventory: UserFoodWithInventory)*/
 
     @Transaction
     @Query("SELECT * FROM Inventory")
@@ -59,7 +53,6 @@ interface dao {
     @Transaction
     @Query("SELECT * FROM FoodItem")
     fun getFoodItem():List<FoodItem>
-
     @Transaction
     @Query("SELECT * FROM Inventory")
     fun getInventoryWithFoodItem():List<InventoryWithFood>
@@ -73,8 +66,7 @@ interface dao {
     fun getUserFoodItem(): List<UserFoodWithInventory>
 
     @Transaction
-    @Query("SELECT * FROM ProductItems")
+    @Query("SELECT * FROM WebFoodItem")
     fun getProductData(): List<WebDataItem>
-
 
 }

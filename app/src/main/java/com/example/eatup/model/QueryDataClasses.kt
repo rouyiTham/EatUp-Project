@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.Junction
 import androidx.room.Relation
 import androidx.room.util.TableInfo
+import com.example.eatup.eachFood
 
 data class InventoryWithFood(
     @Embedded val inventory : Inventory,
